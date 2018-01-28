@@ -1,4 +1,9 @@
-# LaTeX Template for Scientific Theses [![Build Status](https://circleci.com/gh/latextemplates/scientific-thesis-template/tree/master.svg?style=shield)](https://circleci.com/gh/latextemplates/scientific-thesis-template/)
+# B.Sc. Thesis: Evaluation and Integration of an OPC UA-Service into a Container-Based Cloud Platform [![Build Status](https://circleci.com/gh/latextemplates/scientific-thesis-template/tree/master.svg?style=shield)](https://circleci.com/gh/latextemplates/scientific-thesis-template/)
+
+This repository contains the LaTeX project for the bachelor thesis of Viktor Krimstein, worked on during the winter semester 2017 / 2018 at the Institute for Control Engineering of Machine Tools and Manufacturing Units of the University of Stuttgart.
+Below, a documentation of the used LaTeX template can be found.
+
+# LaTeX Template for Scientific Theses
 
 This template is a general template for scientific theses.
 Currently, it is the unofficial LaTeX template for Master, Bachelor, Diploma, and Student Theses at following institutions:
