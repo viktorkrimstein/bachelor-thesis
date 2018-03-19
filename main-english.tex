@@ -190,7 +190,7 @@ enddate={May 22, 2018}
 			
 		\section{Goal} \label{sec:goal}
 		
-			Description of the specific goal of this work.
+			Description of the specific goal of this work. This chapter should also mark out, that the work specifis a proof-of-concept architecture and the implementaiton verifies the planed work.
 		
 	\chapter{State of the Art} \label{ch:state_of_the_art}
 	
@@ -198,23 +198,15 @@ enddate={May 22, 2018}
 		
 		\section{Cloud Computing} \label{sec:cloud_computing}
 		
-			Explanation of common cloud computing patterns and currently state of the technology respectively to the manufacturing and Internet of Things Industry
-			
-			\subsection{Patterns} \label{subsec:patterns}
-			
-			Explain the general patterns.
-			
-			\subsection{Internet of Things} \label{subsec:internet_of_things}
-			
-			Exmplain the current IoT movement.
+			Explanation of common cloud computing patterns and currently state of the technology respectively to the manufacturing and Internet of Things Industry.
 		
 		\section{Cloud Manufacturing} \label{sec:cloud_manufacturing}
 		
-			Brief introduction to cloud manufacturing.
+			Brief introduction to cloud manufacturing. Including the general patterns of Cloud Computing and the use of them in the special calse of Cloud Manufacturing. Brief comparison / introduction to The Internet of Things.
 			
 		\section{OPC UA} \label{sec:opc_ua}
 		
-			Introduction to communication protocols in manufacturing.
+			Introduction to communication protocols in manufacturing. Reference to concurrent products on the market.
 				
 		\section{Technology} \label{sec:technology}
 		
@@ -244,21 +236,32 @@ enddate={May 22, 2018}
 		
 		\section{Requirements} \label{sec:requirements}
 		
+			Brief introduction to the requirements and needs, this work aims for.
+		
 			\subsection{Infrastructure} \label{subsec:infrastructure}
+			
+				Description of the infrastructure / platform on which, the service should be implemented on.
 			
 			\subsection{Architecture} \label{subsec:architecture}
 			
+				Brief overview of the current architecture, the service should be integrated on.
+			
 			\subsection{Technology} \label{subsec:technology}
 			
-			\subsection{Use Cases} \label{subsec:use_cases}
+				Overview of the techology stack used.
 			
-				All Use Cases
 				
-				\subsubsection{Mandatory} \label{subsubsec:mandatory}
+			\subsection{Mandatory Features} \label{subsec:mandatory}
 				
-				\subsubsection{Optional} \label{subsubsec:optional}	
-			
+				Description of the Mandatory Use Cases.
+				
+			\subsection{Optional Use-Cases} \label{subsec:optional}	
+				
+				Description of the optional Use Cases.
+				
 		\section{Approach} \label{sec:approach}
+		
+			Introduction to the approach chapter. Point out the proof of concept idea and that it should verify an Open Source service cloud manufacturing approach for further use.
 		
 			\subsection{Integration} \label{subsec:integration}
 			
@@ -270,27 +273,39 @@ enddate={May 22, 2018}
 			
 			\subsection{Services} \label{subsec:services}
 			
-				Class Diagram
+				Service Component Diagram taken by the specification, describing which use-case should be handled by which service.
 				
 			\subsection{Workflow Concept} \label{subsec:workflow_concept}
 			
-				Sequence Diagram
+				Sequence Diagram describing the whole workflow of the service and the platform from producer and consumer view.
 				
 			\subsection{Machine Tool Integration} \label{subsec:machine_tool_intergation}
 			
-				description of evaluated NC and PLC decision.
+				Description of evaluated NC and PLC decision. Description should reference the general OPC UA file type and lead, to a generic implementation independant of the underlying control.
 				
 			\subsection{Security} \label{subsec:security}
 			
-				MIME Type etc.
+				Details on the security patterns of cloud computing implemented and the patterns of OPC UA Security used in this work.
 				
 	\chapter{Discusion} \label{ch:discusion}
 	
 		Discusion how well the actual implementation meets the defined concept goals.
 		
+		\subsection{Integration Results}\label{subsec:integration_results}
+		
+			Description of how well the service could be integrated.
+			
+		\subsection{Use-Case Implementation}\label{subsec:use_cases_implementation}
+		
+			Discussion and listing of the use-cases and requirements implemented.
+			
+		\subsection{Limitations}\label{subsec:limitations}
+		
+			Disscussion of the limitations and difficulities discovered as part of this work.
+		
 	\chapter{Conclusion and Outlook} \label{ch:conclusion_and_outlook}
 	
-		End of the Work
+		Conclusion and Outlook of the work.
 		
 	\clearpage
 	
