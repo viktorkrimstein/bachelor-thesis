@@ -26,8 +26,8 @@ title={Evaluation and Integration of an OPC UA Service into a Container-Based Cl
 author={Viktor Krimstein},
 type=bachelor,
 institute=iste, % or other institute names - or just a plain string using {Demo\\Demo...}
-course={Software Engineering},
-examiner={Prof.\ Dr.\ rer.\ nat.\ habil.\ Stefan Wagner},
+course={Softwaretechnik},
+examiner={Prof.\ Dr.\ Stefan Wagner},
 supervisor={Dipl.-Ing.\ Wolfgang Fechner,\\Carsten Ellwein,\ M.Sc.},
 startdate={November 22, 2017},
 enddate={May 22, 2018}
@@ -182,15 +182,50 @@ enddate={May 22, 2018}
 	
 	\chapter{Introduction} \label{ch:introduction}
 	
-		This chapter will give a brief introduction to this work.
+		% BEGIN INTRODUCTION
 		
-		\section{Motivation} \label{sec:motivation}
+		The trend of connecting physical objects with the Internet gave birth to the term \gls{iot}. 
+		\gls{iot} envisions applications running with interconnected objects working together to gather data and act in environments by controlling different actuators to enable new functionality with minimal human intervention~\cite{atzori2010internet}.
+		With the introduction of \gls{iot} and \gls{cps} concepts in industrial application scenarios, automation is undergoing a tremendous change~\cite{wollschlaeger2017future}.
 		
-			The motivation for this work explained.
+		% END INTRODUCTION
+		
+		%%%
+		
+		% BEGIN MOTIVATION
+		
+		The motivation for this work explained.
+		
+		% END MOTIVATION
+		
+		%%%
+		
+		% BEGIN GOALS
+				
+		Description of the specific goal of this work. 
+		This chapter should also mark out, that the work specifis a proof-of-concept architecture and the implementaiton verifies the planed work.
+		
+		% END GOALS
+		
+		%%%
+		
+		% BEGIN THESIS STRUCTURE
+		
+		This paper is structured as follows: In Section II, we
+		describe a motivating scenario of a typical IoT application,
+		consisting out of devices installed in different environments. In
+		the same section we also describe the OASIS standard TOSCA
+		by describing how to model the presented scenario. Afterwards,
+		we describe our approach of solving the motivational
+		scenario by automating the configuration of IoT devices with
+		our generic method of generating Scale-Out Plans in Section
+		III. In Section IV we describe our validation of our approach
+		based on a prototypical implementation of our method within
+		the OpenTOSCA Ecosystem. In Section V we discuss work
+		related to IoT device integration, Section VI concludes the
+		paper and outlines possible future work.
 			
-		\section{Goal} \label{sec:goal}
-		
-			Description of the specific goal of this work. This chapter should also mark out, that the work specifis a proof-of-concept architecture and the implementaiton verifies the planed work.
+		% END THESIS STRUCTURE
 			
 	\chapter{Foundations}\label{ch:foundations}
 	
@@ -344,36 +379,6 @@ enddate={May 22, 2018}
 		Conclusion and Outlook of the work.
 		
 	\clearpage
-	
-	
-	%%%%%% BEGIN DEMO CONTENT %%%%%%
-	
-%	\chapter{Introduction}
-%	
-%	This thesis tarts with \cref{chap:k2}.
-%	
-%	We can also typeset \verb|<text>verbatim text</text>|.
-%	Backticks are also rendered correctly: \verb|`words in backticks`|.
-%	
-%	\chapter{Chapter Two}
-%	\label{chap:k2}
-%	
-%	LaTeX hints are provided in \cref{chap:latexhints}.
-%	
-%	\blinddocument
-%	
-%	
-%	\chapter{Conclusion and Outlook}
-%	\label{chap:zusfas}
-%	
-%	\section*{Outlook}
-%	
-%	\appendix
-%	\input{latexhints-english}
-%	
-%	\clearpage
-	
-	%%%%%% END DEMO CONTENR %%%%%%
 	
 	% \printindex
 	
