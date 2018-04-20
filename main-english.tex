@@ -193,7 +193,7 @@ enddate={May 22, 2018}
 		What is lacking in this type of manufacturing regime are the centralized operation management of the services, choice of different operation modes and embedded access of manufacturing equipment and resources, without which a seamless, stable and high quality transaction of manufacturing resource services and a \gls{qos} cannot be guaranteed~\cite{tao2010theory}.
 		Further, any attempt to steer processes independently of continuous human interaction requires, in a very wide sense, the flow of information between some kind of sensors, controllers, and actuators ~\cite{sauter2011evolution}.
 		
-		The vision to drive self-optimizing production systems forward and to manage them through a cloud platform is an important aspect of cloud manufacturing but has not been the focus of many research projects. 
+		The vision to drive self-optimizing production systems forward and to manage them through a cloud platform is an important aspect of \gls{cm} but has not been the focus of many research projects. 
 		With the research project \gls{rnp}~\cite{ellwein2016} which is currently being processed at the \gls{isw}, and its available functionalities at the time of writing this thesis, manufacturers of different industries and sectors can use the cloud platform for flexible production assignment and detailed order management. 
 		To drive the vision forward, \gls{rnp} aims to integrate features and functionalities to access machine tools directly from the cloud and independently of their physical location and the underlying manufacturing platforms by only relying on a homogeneous \gls{m2m} communication.
 		
@@ -291,28 +291,129 @@ enddate={May 22, 2018}
 				\label{fig:rnp_architecture}
 			\end{figure}
 			
-			Further, every service is responsible only for one specific part of the whole platform domain(e.g. order management, user access and permission management etc.). 
-			The persistence layer serves as a connection from the business logic layer and the database. 
-			The business logic layer contains all functionalities regarding the implemented services. 
+			Further, every service is responsible only for one specific part of the whole platform domain(e.g., order management, user access and permission management etc.).
+			Through the serverd database interface, the business logic can access the persistence layer to store and retrieve data required for domain specific operations.
+			The business logic layer itself, contains all functionality provided by the platform encapsulated to different services.
 			
 			Services and databases are encapsulated in virtualization containers to ensure platform independence and the increase of maintainability~\cite{xen.17b}. 
 			The web interface component is the application layer which contains the \gls{ui} and the \gls{api} gateway routing all client requests to the appropriate services by its internal \gls{url} representation. 
 			
 		\section{Cloud Computing}\label{sec:cloud_computing}
 		
-			Explanation of common cloud computing patterns and currently state of the technology respectively to the manufacturing and Internet of Things Industry.~\cite{mell2011nist}
-		
+			By the \gls{nist} definition of cloud computing, cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction~\cite{mell2011nist}.
+			This cloud model is composed of five essential characteristics, three service models, and four deployment
+			models~\cite{fehling2014cloud}. With regard to this work, we will focus and describe the three service models, often adapted in the manufacturing environment.
+			
+			\paragraph{\gls{saas}} The capability provided to the consumer is to use the provider's applications running on a cloud infrastructure~\cite{mell2011nist}.\footnote{A cloud infrastructure is the collection of hardware and software that enables the five essential characteristics of cloud computing. The cloud infrastructure can be viewed as containing both a physical layer and an abstraction layer~\cite{fehling2014cloud}. The physical layer consists of the hardware resources that are necessary to support the cloud services being provided, and typically includes server, storage and network components. The abstraction layer consists of the software deployed across the physical layer, which manifests the essential cloud characteristics. Conceptually the abstraction layer sits above the physical layer.}
+			The applications are accessible from various client devices through either a thin client interface, such as a web browser (e.g., web-based email), or a program interface~\cite{mell2011nist}. 
+			The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited userspecific application configuration settings~\cite{mell2011nist}.
+			
+			\paragraph{\gls{paas}} The capability provided to the consumer is to deploy onto the cloud infrastructure consumer-created or acquired applications created using programming languages, libraries, services, and tools supported by the provider~\cite{fehling2014cloud}.\footnote{This capability does not necessarily preclude the use of compatible programming languages, libraries, services, and tools from other sources.}
+			The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, or storage, but has control over the deployed applications and possibly configuration settings for the application-hosting environment.
+			
+			\paragraph{\gls{iaas}} The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications~\cite{leymann2011cloud}. The consumer does not manage or control the underlying cloud infrastructure but has control over operating systems, storage, and deployed applications; and possibly limited control of select networking components (e.g., host firewalls)~\cite{mell2011nist}.
+			
+			As shown in \cref{sec:rent_n_produce}, the \gls{rnp} cloud platform is built upon a \gls{iaas} layer providing its functionality over the \gls{paas} and \gls{saas} models. The goals and motivations of this work, can be related to the \gls{paas} model, as machin-tools and manufacturing sites should be provisioned over the services provided by the platform.
+			
+	\newpage
+			
 		\section{Cloud Manufacturing}\label{sec:cloud_manufacturing}
 		
-			Brief introduction to cloud manufacturing. Including the general patterns of Cloud Computing and the use of them in the special calse of Cloud Manufacturing. Brief comparison / introduction to The Internet of Things.
+			\gls{cm} is a networked manufacturing paradigm which has emerged due to the introduction of cloud computing concepts and technologies, such as resource pooling, virtualization, \gls{soa} and the concepts described in \cref{sec:cloud_computing}~\cite{macia2012cloud}. 
+			It refers to the distribution of manufacturing resources via the internet and allow users access to manufacturing services in a flexible and location independent (only limited by the real-time connectivity required) way, using a \gls{xaas} payment model only for the time resource are occupied~\cite{macia2012cloud}.
+			
+			Services offered to the manufactures range from product design and development to manufacturing production of the requested parts~\cite{xu2012cloud}. The provided resources  are managed and encapsulated in a centralized way through the whole automation pyramid~\cite{kleinemeier2014automatisierungspyramide}.
+			In a \gls{cm} system, three types of users and roles are defined -- providers, consumers and operators~\cite{wu2013cloud}.
+			
+			Providers offer manufacturing resources on the platform. 
+			They can take the form of a single person, a whole organization or a third party~\cite{tao2014cciot}. 
+			Consumers are users who subscribe to manufacturing services offered by the platform and pay for the usage time~\cite{he2015state}. 
+			The responsibility of operators is to operate the platform to deliver services which can be used by providers and consumers.
+			The operator is also responsible to maintain the technologies and service stack involved within the platform as well as the platform architecture and design~\cite{tedeschi2015security}.
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=\textwidth]{cloud_manufacturing.jpg}
+				\caption{Architecture of a cloud manufacturing system adapted from~\cite{xu2012cloud}.}
+				\label{fig:cloud_manufacturing}
+			\end{figure}
+		
+			The architecture of a \gls{cm} platform shown in \cref{fig:cloud_manufacturing} is constructed by the following four tiers and three domains: the manufacturing resource layer, virtual service layer, global service layer and the application layer~\cite{wu2013cloud}.
+			In the manufacturing resource layer, resources which are required for the product life cycle of the production, including machine-tools, gateways and administration tools, are provided. 
+			Resources can either be physical resources or machine-tools in general, as well as abstracted manufacturing capabilities~\cite{kleinemeier2014automatisierungspyramide}. 
+			Manufacturing resources include for instance equipment, servers or \gls{plc} units~\cite{xu2012cloud}. 
+			With abstract manufacturing capabilities, producers and manufacturer offer the possibility for executing a special task and can include the cycles of product design and development, production, control and so on~\cite{he2015state}.
+			
+			With the virtual service layer, manufacturing resources are identified, abstracted, virtualized and offered as \gls{cm} services. tedeschi2015security
+			Further, these \gls{cm} services are offered to customers relying on the platform and can be paid by its users on demand~\cite{tedeschi2015security}.
+			The global service layer relies on cloud deployment technologies which are necessary to run the system and bridges the provider and customer domains.
+			Cloud deployment technologies can be for instance an \gls{iaas} or a \gls{paas} offering, as described in~\cref{sec:cloud_computing}. 
+			The global service layer can operate in two operation modes -- complete service mode and partial service mode. 
+			The complete service mode orchestrates all manufacturing processes itself~\cite{xu2012cloud}.
+			In the partial service mode, it is possible for providers to take control over the processes at system scope where the global service layer supports the management and oraganization of these processes. 
+			Finally, the application layer is responsible for the interaction between the end-user and the manufacturing resources~\cite{xu2012cloud}. 
 		
 		\section{OPC UA} \label{sec:opc_ua}
 		
-			Introduction to communication protocols in manufacturing. Reference to concurrent products on the market.
+			The \gls{opcua} is the new version of the well-known \gls{opc} architecture originally designed by the \gls{opc} Foundation to
+			connect industrial devices to control and supervision applications~\cite{hadlich2006providing}. The focus of \gls{opc} is on getting access to large amounts of real-time data while ensuring performance constraints without disrupting the normal operation of the devices~\cite{candido2010soa}.
+			The original \gls{opc} specifications, based on Microsofts \gls{com}, are becoming obsolete and are gradually being replaced by new interoperability standards, including web-services what led the \gls{opc} Foundation to publish a new architecture, called \gls{opcua}~\cite{hadlich2006providing}.
 			
-		\section{Software in the Production Environment}\label{sec:software_in_the_production_environment}
+			\subsection{Server Model}\label{subsec:opc_ua_server_model}
+			
+				\gls{opcua} specifies the exchange of real-time information of production plant data between control devices or \gls{it} systems from different manufacturers~\cite{venkatesh2005validating}.
+				The communication is established by a \textit{inverted} client-server system, where the client triggers actions on the server for automation control, and the server executes the commands on, or retrieves data from the underlying machine~\cite{imtiaz2013scalability}.
+				\gls{opcua} server include an information model that allows users to organize data and their semantics in a structured manner. 
+				The information model constitutes the address spaces of \gls{opcua} servers. 
+				It is a fullmesh network of nodes with their properties and relations.
+				In general, users create the information model for their \gls{opcua} servers manually at implementation time or implement vendor-specific automatisms~\cite{henssen2014online}.
+				A server address space consists of the following element types which are shown in \Cref{fig:opc_ua_server_model}.
+				
+				\begin{itemize}
+					
+					\item \textit{Object}: ``A \textit{Node} that represents a physical or abstract element of a system. Objects are modelled using the \gls{opcua} \textit{Object Model}. Systems, subsystems and devices are examples of Objects. An Object may be defined as an instance of an ObjectType.`'~\cite{opcfoundation2017part1}
+					
+					\item \textit{ObjectType}: ``A Node that represents the type definition
+					for an Object.`'~\cite{opcfoundation2017part1}
+					
+					\item \textit{Variable}: ``A Variable is a Node that contains a value.`'~\cite{opcfoundation2017part1}
+					
+					\item \textit{VariableType}: ``Node that represents the type definition for a Variable`'~\cite{opcfoundation2018part3}
+					
+					\item \textit{DataType}: ``An instance of a DataType Node that is used together with the \textit{ValueRank} attribute to define the data type of a Variable.`'~\cite{opcfoundation2018part3}
+					
+					\item \textit{ReferenceType}: ``A Node that represents the type definition of a \textit{Reference}. The ReferenceType specifies the semantics of a Reference. The name of a ReferenceType identifies how source Nodes are related to target Nodes and generally reflects an operation between the two, such as “A Contains B”.`'~\cite{opcfoundation2017part1}
+					
+					\item \textit{Method}: ``A callable software function that is a component of an Object.`'~\cite{opcfoundation2017part1}
+					
+					\item \textit{View}: ``A specific subset of the \textit{AddressSpace} that is of interest to the \textit{Client}.`'~\cite{opcfoundation2017part1}
+					
+				\end{itemize}
+			
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{opc_ua_server_model.jpg}
+					\caption{The \gls{opcua} server architecture adapted from~\cite{opcfoundation2017part1}.}
+					\label{fig:opc_ua_server_model}
+				\end{figure}
 		
-			Patterns, Software, Virtualization, Cloud Computing, IoT and else.
+			\subsection{OPC UA Client Model}\label{subsec:opc_ua_client_model}
+		
+				The \gls{opcua} Client architecture models the Client endpoint of client/server interactions. \Cref{fig:opc_ua_client_model} illustrates the major elements of a typical Client and how they relate to each other.
+		
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{opc_ua_client_model.jpg}
+					\caption{The \gls{opcua} client architecture adapted from~\cite{opcfoundation2017part1}.}
+					\label{fig:opc_ua_client_model}
+				\end{figure}
+			
+				The Client Application is the code that implements the function of the Client. 
+				It uses the Client \gls{api} to send and receive \gls{opcua} Service requests and responses to the Server. 
+				The Services defined for \gls{opcua} are described in Clause 6.4 of~\cite{opcfoundation2017part4}.
+				Note that the ``Client API`' is an internal interface that isolates the Client application code from an \gls{opcua} Communication Stack. 
+				The \gls{opcua} Communication Stack converts Client \gls{api} calls into Messages and sends them through the underlying communications entity to the Server at the request of the Client application. 
+				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
 		
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 			
@@ -470,4 +571,5 @@ enddate={May 22, 2018}
 	\pagestyle{empty}
 	\renewcommand*{\chapterpagestyle}{empty}
 	\Versicherung
+	
 \end{document}
