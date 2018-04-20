@@ -10,7 +10,7 @@
 \documentclass[
 a4paper,
 twoside,
-bibliography=totoc,
+% bibliography=totoc,
 % dxtotoc,   %Index ins Inhaltsverzeichnis
 % liststotoc, %List of X ins Inhaltsverzeichnis, mit liststotocnumbered werden die Abbildungsverzeichnisse nummeriert
 headsepline,
@@ -26,7 +26,7 @@ title={Evaluation and Integration of an OPC UA Service into a Container-Based Cl
 author={Viktor Krimstein},
 type=bachelor,
 institute=iste, % or other institute names - or just a plain string using {Demo\\Demo...}
-course={Softwaretechnik},
+course={se},
 examiner={Prof.\ Dr.\ Stefan Wagner},
 supervisor={Dipl.-Ing.\ Wolfgang Fechner,\\Carsten Ellwein,\ M.Sc.},
 startdate={November 22, 2017},
@@ -77,7 +77,7 @@ enddate={May 22, 2018}
 		In the context of Industry 4.0, services are brought to the forefront along with a higher degree of networking. 
 		The vision of self-governing systems that exchange information and make decisions without human intervention is a primary goal, but not necessarily the focus of many projects. 
 		
-		The research project ``Rent'n'Produce: Secure cloud service for the commissioning and control of production system'' which is currently being processed at the Institute for Control Engineering of Machine Tools and Manufacturing Units of the University of Stuttgart, has the vision of advancing self-directed manufacturing systems. 
+		The research project ``Rent'n'Produce: Secure Cloud Service for the Commissioning and Control of Production Systems'' which is currently being processed at the Institute for Control Engineering of Machine Tools and Manufacturing Units of the University of Stuttgart, has the vision of advancing self-directed manufacturing systems. 
 		Companies from different industries should be provided with a cloud-based platform that enables a highly flexible production order. 
 		
 		This bachelor thesis will focus on the integration of a real machine tool into the Rent'n'Produce Cloud Platform by using the Open Platform Communications Unified Architecture. 
@@ -132,7 +132,7 @@ enddate={May 22, 2018}
 	% an der passenden Stelle im Fließtext erzwungen werden.
 	
 	\listoffigures
-	\listoftables
+	% \listoftables
 	
 	% Wird nur bei Verwendung von der lstlisting-Umgebung mit dem "caption"-Parameter benoetigt
 	% \lstlistoflistings 
@@ -181,56 +181,123 @@ enddate={May 22, 2018}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\chapter{Introduction} \label{ch:introduction}
-	
-		% BEGIN INTRODUCTION
 		
 		The trend of connecting physical objects with the Internet gave birth to the term \gls{iot}. 
 		\gls{iot} envisions applications running with interconnected objects working together to gather data and act in environments by controlling different actuators to enable new functionality with minimal human intervention~\cite{atzori2010internet}.
 		With the introduction of \gls{iot} and \gls{cps} concepts in industrial application scenarios, automation is undergoing a tremendous change~\cite{wollschlaeger2017future}.
+		By adapting these concepts, the philosophy of ``\gls{dama}'' has emerged in the past decade~\cite{heinrichs2005anywhere,venkatesh2005validating,manenti2011building}. 
+		The \gls{dama} approach demands the ability to exchange design and manufacturing data across multiple sites. 
+		\gls{dama} also helps establish links between \gls{mrp}, \gls{erp} and \gls{crm}~\cite{xu2012cloud}. 
 		
-		% END INTRODUCTION
+		However, today's networked manufacturing mainly refers to integration of distributed resources for undertaking a single manufacturing task~\cite{li2010cloud}.
+		What is lacking in this type of manufacturing regime are the centralized operation management of the services, choice of different operation modes and embedded access of manufacturing equipment and resources, without which a seamless, stable and high quality transaction of manufacturing resource services and a \gls{qos} cannot be guaranteed~\cite{tao2010theory}.
+		Further, any attempt to steer processes independently of continuous human interaction requires, in a very wide sense, the flow of information between some kind of sensors, controllers, and actuators ~\cite{sauter2011evolution}.
 		
-		%%%
+		The vision to drive self-optimizing production systems forward and to manage them through a cloud platform is an important aspect of cloud manufacturing but has not been the focus of many research projects. 
+		With the research project \gls{rnp}~\cite{ellwein2016} which is currently being processed at the \gls{isw}, and its available functionalities at the time of writing this thesis, manufacturers of different industries and sectors can use the cloud platform for flexible production assignment and detailed order management. 
+		To drive the vision forward, \gls{rnp} aims to integrate features and functionalities to access machine tools directly from the cloud and independently of their physical location and the underlying manufacturing platforms by only relying on a homogeneous \gls{m2m} communication.
 		
-		% BEGIN MOTIVATION
+		Unfortunately, the last requirement is quite a difficult one as manufacturers show a huge heterogeneity in the ways and protocols, the machine tools support for communication and data access~\cite{xu2012cloud}.
+		Tackling this challenge two specifications emerged within the last years.
+		European manufacturers integrated the \gls{opcua} the extension of its predecessor \gls{opc}, while in the United States \gls{dds} gets more popular~\cite{niggemann2015data}.
 		
-		The motivation for this work explained.
+		\section{Motivation}\label{sec:motivation}
 		
-		% END MOTIVATION
+			\gls{cm} is a concept which aims to transform the traditional manufacturing process into the cloud and enable users of the platform an intelligent and more comfortable way to manage manufacturing resources and production assignment~\cite{xu2012cloud}. 
+			The realization of a shared resource pool, such as shared manufacturing resources and capabilities, and on-demand use of manufacturing services provide users the ability to manage and view resources at any time or place~\cite{tao2011cloud}. 
+			It is possible to follow the whole manufacturing process from the designing stage to production and manufacturing companies can scale their production according to the clients' demand~\cite{tao2011cloud}. 
+			The motivation of this work is to provide an architectural approach to provision and manage machine tools of manufacturers remotely and to transfer production data down to the machines using an \gls{m2m} standard communication protocol.
+			
+			In the scope of this work, production data will be represented in form of G-Code.
+			G-Code is the term for a programming language that is used to control automated machine tools~\cite{shin2007reincarnation}. 
+			It is a industry standard and often referred to as ISO-6983. 
+			Each line of G-Code is executed sequentially and contains information for the machine tool on how to perform a specific task.
+			
+			By integrating this architecture to \gls{rnp} clients would be given the possibility to track, manage and control their machine tools remotely over a cloud platform independent of their local automation infrastructure.
 		
-		%%%
-		
-		% BEGIN GOALS
+		\section{Goals}\label{sec:goals}
+			
+			The goal of this thesis is to model the integration of a real machine tool into the \gls{rnp} cloud platform by using \gls{opcua}.
+			Therefore, use-cases will be researched and evaluated to create an architecture, modeling the specified requirements.
+			This architecture will be later on tested, using a prototypical implementation of a \gls{poc}. 
+			The required functionality of the integrated \gls{poc} should be encapsulated in a virtualization container. 
+			This middleware is intended to provide access to configuration and status data of the production resource, to transfer \gls{nc} programs, generated through a \gls{cad} and \gls{cam} process chain, to the machine tool, and to start or stop the part production. The resulting \gls{poc} should simulate the \gls{cm} processes beginning with the order management and ending with the production of a real part.
+			Subgoals are defined as follows:
+			
+			\begin{itemize}
 				
-		Description of the specific goal of this work. 
-		This chapter should also mark out, that the work specifis a proof-of-concept architecture and the implementaiton verifies the planed work.
-		
-		% END GOALS
-		
-		%%%
-		
-		% BEGIN THESIS STRUCTURE
-		
-		This paper is structured as follows: In Section II, we
-		describe a motivating scenario of a typical IoT application,
-		consisting out of devices installed in different environments. In
-		the same section we also describe the OASIS standard TOSCA
-		by describing how to model the presented scenario. Afterwards,
-		we describe our approach of solving the motivational
-		scenario by automating the configuration of IoT devices with
-		our generic method of generating Scale-Out Plans in Section
-		III. In Section IV we describe our validation of our approach
-		based on a prototypical implementation of our method within
-		the OpenTOSCA Ecosystem. In Section V we discuss work
-		related to IoT device integration, Section VI concludes the
-		paper and outlines possible future work.
+				\item Evaluation and specification of an architecture providing the required functionality.
+				
+				\item Implementing and integrating a \gls{poc} service based on the developed architecture.
+				
+				\item The \gls{poc} should be able to store G-Code for the production part description.
+				
+				\item The \gls{poc} should provide its functionality using  an \gls{api}.
+				
+				\item Integration of a real milling machine to the \gls{rnp} platform using the \gls{poc}.
+				
+			\end{itemize}
 			
-		% END THESIS STRUCTURE
+	\newpage
 			
+		\section{Structure}
+		
+			This thesis is structured as follows: In \Cref{ch:foundations}, we describe in detail the scope and the research field of this work. 
+			Furthermore we provide relations to the \gls{rnp} research project and to the field of \gls{cm}.
+			References to the current state of the art are presented in \Cref{ch:state_of_the_art}.
+			Afterwards we take a differentiated view on the present state of the research in \Cref{ch:state_of_the_Science}.
+			Concepts and methodologies of the \gls{poc} to be developed as part this work are discussed in more detail in \Cref{ch:concept}.
+			In \Cref{ch:discusion} we discuss the results of the \gls{poc} implementation.
+			\Cref{ch:conclusion_and_outlook} concludes the paper and outlines possible future work.
+	
 	\chapter{Foundations}\label{ch:foundations}
+	
+		In \Cref{ch:introduction} we gave a short summary on \gls{cm} and especially of the challenges in terms of \gls{m2m} communication and the current topology at manufacturing sites.
+		A motivation, why the integration of new features is beneficial for the research state of \gls{rnp}. 
+		To better understand the used terms and suggested concepts, this chapter introduces fundamental knowledge, which is related to this work.
+		
+		A closer description of the reseach project \gls{rnp} is provided in \Cref{sec:rent_n_produce}.
+		The underlying concepts of cloud computing are highlited in \Cref{sec:cloud_computing}.
+		Its' applications to manufacturing models are provided in \Cref{sec:cloud_manufacturing} including the \gls{cad}-\gls{cam} process chain.
+		\Cref{sec:opc_ua} gives an introduction to the \gls{m2m} communcation protocol used in this work.
+		A general overview of the current state of software used in the manufacturing environment is provided in \Cref{sec:software_in_the_production_environment}.
 	
 		\section{Rent'n'Produce}\label{sec:rent_n_produce}
 		
+			The research project \gls{rnp} of the \gls{isw} draws on the existing infrastructure and networking in manufacturing companies and relies on a cloud-based platform for the commissioning of machine-tools and equipment~\cite{xen.17b}. The declared goal of the research project is a highly flexible, location-independent production order across company boundaries. The production parts' description required for commissioning can be present in the form of \gls{cad} data or \gls{nc} programs and transmitted to the system by the client. 
+			The provided functionality of the \gls{rnp} platform at the beginning of this work is as show in \Cref{fig:rnp_workflow}.
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=\textwidth]{rnp_workflow.jpg}
+				\caption{The workflow of the R'n'P platform.}
+				\label{fig:rnp_workflow}
+			\end{figure}
+			
+			Before commissioning the selected resource at the shop floor level, the production part descriptions have to go through a postprocessor and then to be adapted to the selected production resource from the resource catalog.
+			This thesis deals with the transfer of existing G-Code data to a production resource. 
+			The postprocessing of workpiece descriptions is part of a parallel research project.
+			
+			\subsection{Initial Architecture}\label{subsec:initial_architecture}
+			
+			The architecture is based on several services which work independently of each other following a \gls{soa} approach~\cite{erl2008soa}. 
+			Each service is split up in a persistence layer and a business logic layer making its functionality accessible to other services using an \gls{api}.
+			A simplified view on the architecture of \gls{rnp} is shown in \Cref{fig:rnp_architecture}.
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=\textwidth]{rnp_components_simplified.jpg}
+				\caption{Simplified architecture of the Rent'n'Produce platform.}
+				\label{fig:rnp_architecture}
+			\end{figure}
+			
+			Further, every service is responsible only for one specific part of the whole platform domain(e.g. order management, user access and permission management etc.). 
+			The persistence layer serves as a connection from the business logic layer and the database. 
+			The business logic layer contains all functionalities regarding the implemented services. 
+			
+			Services and databases are encapsulated in virtualization containers to ensure platform independence and the increase of maintainability~\cite{xen.17b}. 
+			The web interface component is the application layer which contains the \gls{ui} and the \gls{api} gateway routing all client requests to the appropriate services by its internal \gls{url} representation. 
+			
 		\section{Cloud Computing}\label{sec:cloud_computing}
 		
 			Explanation of common cloud computing patterns and currently state of the technology respectively to the manufacturing and Internet of Things Industry.~\cite{mell2011nist}
@@ -243,7 +310,7 @@ enddate={May 22, 2018}
 		
 			Introduction to communication protocols in manufacturing. Reference to concurrent products on the market.
 			
-		\section{Software in the Production Environment}\label{subsec:software_in_the_production_environment}
+		\section{Software in the Production Environment}\label{sec:software_in_the_production_environment}
 		
 			Patterns, Software, Virtualization, Cloud Computing, IoT and else.
 		
@@ -291,40 +358,54 @@ enddate={May 22, 2018}
 		
 		\section{Control Engineering in the Cloud}\label{sec:control_engineering_in_the_cloud}
 		
+			Describing the current state of Control Engineering and Automation from the Cloud.
+			ISW project Picasso and TSN related fields.
+		
 		\section{Machine-to-Machine Communication}\label{sec:machine_to_machine_communication}
 		
 			Describe the field of M2M by referencing the purposes of OPC UA and other currently available standards. Papers:
-			
-			\begin{itemize}
-				
-				\item Text
-				
-			\end{itemize}
 				
 	\chapter{Concept} \label{ch:concept}
 	
-		Explain all concepts and ideas for the solution
+		In this chapter, we will describe our concept for the \gls{poc} to be integrated to \gls{rnp}.
+		\Cref{sec:requirements} discusses and list requirements for the infrastructure and architecture of the platform, the technology decisions taken for the \gls{poc} implementation as well as mandatory and optional features. In \Cref{sec:approach} we will highlight the implementation approach of the \gls{poc} highlighting the way we integrated the service into the platform. 
 		
 		\section{Requirements} \label{sec:requirements}
 		
-			Brief introduction to the requirements and needs, this work aims for.
+			In this section, we will summarize and give an overview over the requirements, gathered from the analysis of the \gls{rnp} platform and the discussion with the research partners.
 		
 			\subsection{Infrastructure} \label{subsec:infrastructure}
 			
-				Description of the infrastructure / platform on which, the service should be implemented on.
+				In \Cref{sec:rent_n_produce} we described, that the \gls{rnp} platform is built upon services following the \gls{soa} approach, where each of the services takes responsibility for one specific domain task.
+				Further, every service is seperated into a business logic component serving the \gls{api} for its functionality, and a persistence layer component implemented either as a \gls{sql} or \gls{nosql} database.
+				Following this pattern, we deduce that the requirement will be to implement the \gls{poc} as a service, which stores the machine-tool configuration data as well as the G-Code for the production part in a database and serves its \gls{api} over a service layer compoenent.
+				Further, both components will be realized using Docker containers.
+				The business logic container will register itself to the service discovery component and be routable over the \gls{api} gateway.
 			
 			\subsection{Architecture} \label{subsec:architecture}
 			
-				Brief overview of the current architecture, the service should be integrated on.
+				As shown in \Cref{subsec:infrastructure} the \gls{poc} to be realized will be packaged into a Docker container and its functionality will be split up into a persistence layer and a business logic layer.
+				As the machine-tool integration represents a part of the resource service process, it doesn't need a \gls{ui} integration, as this part is already implemented in the \gls{rnp} architecture.
+				
+				More precise -- the \gls{poc} should implement an \gls{api}, which can be requested from the resource service, to trigger the production of the required parts contained in a customer order.
 			
 			\subsection{Technology} \label{subsec:technology}
 			
-				Overview of the techology stack used.
+				A core requirement to the \gls{poc} is the support of the \gls{opcua} protocol.
+				Over \gls{opcua} the \gls{poc} should communicate with the machine-tools already registered in the resource service of the platform.
+				Second requirement is the filtering and recognition of G-Code data as it will be transfered to the \gls{plc} of the machine-tool.
+				For the integration to \gls{rnp}, the service should support the communication of \gls{json} over \gls{http} as well as the interaction with the service discovery server and the \gls{api} gateway.
 			
-				
 			\subsection{Mandatory Features} \label{subsec:mandatory}
 				
 				Description of the Mandatory Use Cases.
+				
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{use-cases.jpg}
+					\caption{The Use-Case diagram for the Proof-of-Concept.}
+					\label{fig:use_cases}
+				\end{figure}
 				
 			\subsection{Optional Use-Cases} \label{subsec:optional}	
 				
@@ -362,15 +443,15 @@ enddate={May 22, 2018}
 	
 		Discusion how well the actual implementation meets the defined concept goals.
 		
-		\subsection{Integration Results}\label{subsec:integration_results}
+		\section{Integration Results}\label{sec:integration_results}
 		
 			Description of how well the service could be integrated.
 			
-		\subsection{Use-Case Implementation}\label{subsec:use_cases_implementation}
+		\section{Use-Case Implementation}\label{sec:use_cases_implementation}
 		
 			Discussion and listing of the use-cases and requirements implemented.
 			
-		\subsection{Limitations}\label{subsec:limitations}
+		\section{Limitations}\label{sec:limitations}
 		
 			Disscussion of the limitations and difficulities discovered as part of this work.
 		
