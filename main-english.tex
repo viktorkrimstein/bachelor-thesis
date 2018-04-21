@@ -132,7 +132,7 @@ enddate={May 22, 2018}
 	% an der passenden Stelle im Fließtext erzwungen werden.
 	
 	\listoffigures
-	% \listoftables
+	\listoftables
 	
 	% Wird nur bei Verwendung von der lstlisting-Umgebung mit dem "caption"-Parameter benoetigt
 	% \lstlistoflistings 
@@ -424,6 +424,8 @@ enddate={May 22, 2018}
 		\section{Eclipse Milo}\label{sec:eclipse_milo}
 		
 		\section{Representional State Transfer}\label{sec:rest}
+		
+			Description of \gls{rest} using~\cite{fielding2000architectural}.
 						
 	\chapter{State of the Science} \label{ch:state_of_the_Science}
 	
@@ -473,7 +475,10 @@ enddate={May 22, 2018}
 		
 		\section{Requirements} \label{sec:requirements}
 		
-			In this section, we will summarize and give an overview over the requirements, gathered from the analysis of the \gls{rnp} platform and the discussion with the research partners.
+			In this section, we will summarize and give an overview over the requirements, gathered from the analysis of the \gls{rnp} platform and the discussion with the research partners. 
+			\Cref{subsec:infrastructure} will draw out the infrastructural requirements set on this work and the kind of deployment processes targeted.
+			In \cref{subsec:architecture} we will discuss the architecture, in which our \gls{poc} should be integrated following by \cref{subsec:technology} which describes the technologies to use for the implementation and integration.
+			With \cref{subsec:mandatory} and \cref{subsec:optional} we conclude this chapter providing mandatory and optional Use-Cases for this work.
 		
 			\subsection{Infrastructure} \label{subsec:infrastructure}
 			
@@ -494,12 +499,14 @@ enddate={May 22, 2018}
 			
 				A core requirement to the \gls{poc} is the support of the \gls{opcua} protocol.
 				Over \gls{opcua} the \gls{poc} should communicate with the machine-tools already registered in the resource service of the platform.
-				Second requirement is the filtering and recognition of G-Code data as it will be transfered to the \gls{plc} of the machine-tool.
+				Second requirement is the filtering and recognition of G-Code data as it will be transferred to the \gls{plc} of the machine-tool.
 				For the integration to \gls{rnp}, the service should support the communication of \gls{json} over \gls{http} as well as the interaction with the service discovery server and the \gls{api} gateway.
 			
 			\subsection{Mandatory Features} \label{subsec:mandatory}
 				
-				Description of the Mandatory Use Cases.
+				As result of this work, we want to implement and integrate a \gls{poc} into the \gls{rnp} platform, so machine-tools can be controlled over the cloud platform. 
+				Therefore, we need the possibility to transfer G-Code data to the platform and from the platform down to the machine-tools already provisioned. 
+				Finally, we want to have the possibility to trigger the start or the stop of a part production manually or automatically by the main production process. \Cref{fig:use_cases} lists the emerged Use-Cases and shows their relation to each other. 
 				
 				\begin{figure}[htbp]
 					\centering
@@ -507,26 +514,212 @@ enddate={May 22, 2018}
 					\caption{The Use-Case diagram for the Proof-of-Concept.}
 					\label{fig:use_cases}
 				\end{figure}
+			
+				In the following tables -- \Cref{tab:use_case_upload,tab:use_case_check_machine,tab:use_case_transfer_code,tab:use_case_production_control}) -- we will describe the Use-Case definitions for the ones shown in \cref{fig:use_cases}. The descriptions include only the regular process flow, as the side-effects are described in more detail in the specification, created during this research work.
 				
+				\begin{table}[hbtp]
+					\centering
+					\caption{Use-Case description for the upload of G-Code.}
+					\label{tab:use_case_upload}
+					\begin{tabular}{l p{11cm}}
+						\toprule
+						Name & Upload G-Code
+						\\ \midrule
+						Identifier & /UC-10/
+						\\ \midrule
+						Description & The vendor converted his \gls{cad} files into G-Code so they can be transfered to the machine-tool.
+						\\ \midrule
+						Actors & \begin{enumerate}\item A \gls{rnp} platform user with the vendor role. \item The \gls{opcua} Client Service.\end{enumerate}
+						\\ \midrule
+						Trigger & The vendor has prepared the G-Code and wants to transfer it to the machine-tool.
+						\\ \midrule
+						Level & User-View
+						\\ \midrule
+						Invariants & \begin{enumerate}\item The user stays logged in and keeps his OAuth2-Token with the appropriate scope. \item The uploaded files have not been changed in format, type or content.\end{enumerate}
+						\\ \midrule
+						Preconditions & 
+						\begin{enumerate}
+							\item The user is already logged in to the system using his web-browser and his session is assigned with an OAuth2 Token including the scopes \textit{user}, \textit{customer} and \textit{vendor}.
+							\item The user has the G-Code to be uploaded.
+							\item The G-Code has the MIME-Type \textit{application/x-netcdf}.
+							\item The user knows the Order Identifiert for the order, the G-Code is for.
+						\end{enumerate}
+						\\ \midrule
+						\begin{tabular}{c c} 1 & User \end{tabular} & The user uploads the G-Code using a HTTP-POST request to the \gls{opcua} Client Service.
+						\\ \midrule
+						\begin{tabular}{c c} 2 & System \end{tabular} & The systems persists the G-Code categorized under its order identifier and responds to the user with a HTTP-201 CREATED response containing order identifier and the production part identifier.
+						\\ \midrule
+						Postconditions & The G-Code has been persisted to the system. From the technical point of view, the service responds with a HTTP-201 CREATED Status. The user can download the file over the same \gls{api} by providing the production part id. The G-Code file has not been manipulated after the upload.
+						\\ \bottomrule  
+					\end{tabular}
+				\end{table}
+			
+				\begin{table}[hbtp]
+					\centering
+					\caption{Use-Case description for the retrieval of the current machine-tool status.}
+					\label{tab:use_case_check_machine}
+					\begin{tabular}{l p{9cm}}
+						\toprule
+						Name & Request machine-tool status
+						\\ \midrule
+						Identifier & /UC-20/
+						\\ \midrule
+						Description & The service is able to request the current status of the machine-tool using the \gls{opcua} protocoll. The service should only request, if a machine-tool is prepared for production and does not deliver any error states.
+						\\ \midrule
+						Actors & \begin{enumerate}\item The \gls{opcua} Client Service. \item The machine-tool to be requested.\end{enumerate}
+						\\ \midrule
+						Trigger & Use-Cases including this Use-Case have been triggered as shown in~\cref{fig:use_cases}.
+						\\ \midrule
+						Level & Technical View
+						\\ \midrule
+						Invariants & This Use-Case describes only the retrieval of \gls{opcua} specific information. As long as the protocol and correction are correct, this Use-Case doesn't have any invariants.
+						\\ \midrule
+						Preconditions & 
+						\begin{enumerate}
+							\item The \gls{opcua} Client Service established and holds a connection to the \gls{opcua} server of the machine-tool.
+							\item The machine-tool is available over Ethernet and \gls{opcua}.
+						\end{enumerate}
+						\\ \midrule
+						\begin{tabular}{c c} 1 & \gls{opcua} Client Service \end{tabular} & The \gls{opcua} Client Service requests one of the states from the machine-tool: \begin{enumerate}
+							\item Is the machine-tool currently in an error state?
+							\item Is the machine-tool ready to produce a part (e.g., material preparared and machine-tool loaded)?
+							\item Is the machine-tool currently producing a part?
+						\end{enumerate}
+						\\ \midrule
+						\begin{tabular}{c c} 2 & Machine-Tool \end{tabular} & The \gls{opcua} Server of the machine-tool reponds to the requests of the client service.
+						\\ \midrule
+						Postconditions & The \gls{opcua} Client Service gathered the requested data from the machine-tool. This data can now be used for further production process steps.
+						\\ \bottomrule  
+					\end{tabular}
+				\end{table}
+			
+				\begin{table}[hbtp]
+					\centering
+					\caption{Use-Case description for transfer of G-Code to the machine-tool.}
+					\label{tab:use_case_transfer_code}
+					\begin{tabular}{l p{10cm}}
+						\toprule
+						Name & Transfer G-Code to a Machine-Tool
+						\\ \midrule
+						Identifier & /UC-21/
+						\\ \midrule
+						Description & The vendor can transfer previously uploaded G-Code (as described in \cref{tab:use_case_upload}) to the machine-tool.
+						\\ \midrule
+						Actors & A \gls{rnp} platform user with the vendor role, the \gls{opcua} Client Service and the machine-tool the data should be transfered to.
+						\\ \midrule
+						Trigger & The vendor has uploaded G-Code to the system and wants to transfer it to a machine-tool.
+						\\ \midrule
+						Level & User-View
+						\\ \midrule
+						Invariants & The transfered G-Code stays persisted in the databse and will not be modified. The transfered data doesn't override data already existing on the machine-tool control units.
+						\\ \midrule
+						Preconditions & The user is already logged in to the system using his web-browser and his session is assigned with an OAuth2 Token including the scopes \textit{user}, \textit{customer} and \textit{vendor}. G-Code has been transfered as described in~\cref{tab:use_case_upload}.
+						\\ \midrule
+						\begin{tabular}{c c} 1 & User \end{tabular} & The user requests the Client-Service with a HTTP-POST method containing the identifiers of the part to be produced and the producing machine-tool.
+						\\ \midrule
+						\begin{tabular}{c c} 2 & System \end{tabular} & The Client-Service checks the requested machine-tool for its current state as described in~\cref{tab:use_case_check_machine}.
+						\\ \midrule
+						\begin{tabular}{c c} 3 & System \end{tabular} & The Client-Service loads the G-Code for the part from the database.
+						\\ \midrule
+						\begin{tabular}{c c} 4 & System \end{tabular} & The Client-Service creates an \gls{opcua} connection with the Server on the machine-tool and sends the G-Code data.
+						\\ \midrule
+						\begin{tabular}{c c} 5 & The Machine-Tool \end{tabular} & The \gls{opcua} Server on the machine-tool receives the request, and stores the G-Code in the AddressSpace to a new file and loads it to the \gls{nc} of the machine-tool. Finally, a response, that the persistence was successful is sent back to the Client-Service.
+						\\ \midrule
+						\begin{tabular}{c c} 6 & System \end{tabular} & The Client-Service informs the user, that the transfer was successful by responding with an HTTP-200 OK status.
+						\\ \midrule
+						Postconditions & The G-Code has been transfered to the machine-tool and into its \gls{nc}. The user is informed that the transfer was successful and the user can continue the usage of the platform. The G-Code is now a new File in the \gls{opcua} name space and can be used to produce the part.
+						\\ \bottomrule  
+					\end{tabular}
+				\end{table}
+			
+				\begin{table}[hbtp]
+					\centering
+					\caption{Use-Case description for the production control of the machine-tool.}
+					\label{tab:use_case_production_control}
+					\begin{tabular}{l p{9cm}}
+						\toprule
+						Name & Start and Stop a part production
+						\\ \midrule
+						Identifier & /UC-22/
+						\\ \midrule
+						Description & G-Code data has been successfuly transfered to a machine-tool. This G-Code should now be run to produce a part.
+						\\ \midrule
+						Actors & The \gls{opcua} Client-Service of the \gls{rnp} platform, as well as the control composite of the \gls{opcua} Server, the \gls{plc} and \gls{nc} of the machine-tool as the second actor.
+						\\ \midrule
+						Trigger & G-Code has been transfered to the machine-tool and now the part production should either be started or stopped.
+						\\ \midrule
+						Level & Technical View
+						\\ \midrule
+						Invariants & The G-Code transfered to the machine-tool stays in the same location of the \gls{plc} and \gls{nc} after the production is started or stopped. The machine-tool stays connected to the \gls{rnp} platform during the whole process.
+						\\ \midrule
+						Preconditions & The G-Code was properly transfered to the machine-tool as described in~\cref{tab:use_case_upload}. The \gls{opcua} Server and the machine itself are connected with the \gls{rnp} platform. The machine-tool is not in an error state as described in~\cref{tab:use_case_check_machine}.
+						\\ \midrule
+						\begin{tabular}{c c} 1 & \gls{opcua} Client-Service \end{tabular} & The Client-Service triggers the start or the stop of the production.
+						\\ \midrule
+						\begin{tabular}{c c} 2 & The machine-tool \end{tabular} & The machine-tool loads the G-Code and produces the part or stops its current production, not going into an error state.
+						\\ \midrule
+						\begin{tabular}{c c} 3 & \gls{opcua} Server \end{tabular} & The server registers the processes of the machine-tool and sends it to the message broker of the \gls{rnp} platform over a response to the \gls{opcua} Client-Service of the platform.
+						\\ \midrule
+						Postconditions & The part has been produced or the production process of the machine-tool has been stopped. The current state of the machine-tool can be monitored over the \gls{opcua} Client-Service of the \gls{rnp} platform.
+						\\ \bottomrule  
+					\end{tabular}
+				\end{table}
+								
 			\subsection{Optional Use-Cases} \label{subsec:optional}	
 				
-				Description of the optional Use Cases.
+				Besides the requirements defined to validate the \gls{poc} created in this work, we defined several optional Use-Cases to extend the capacity of the \gls{poc} which could be implemented during this work, or providing inspiration for future research on this matter.
+				The optional Use-Cases pointed out during the research phase are described below in hastily manner giving space for requirement changes and other input and ideas coming from future research:
+				
+				\begin{enumerate}
+					
+					\item More than the control over the \gls{opcua} Client-Service of the \gls{rnp} platform developed during this work, we could image to transfer signals in form of visual information to the \gls{hmi} of the machine-tool. With this Use-Case we could give workers at the production site of the machine-tool the possibility to interact with the system and visually monitor the current state of the whole manufacturing process.
+					
+					\item At the state of this research, the machine-tool will be integrated only by pre configured data from the manufacturing. Allowing an auto-provisioning of the machine-tools could increase the productivity of manufacturers, as we could get to a very homogeneous production environment.
+					
+					\item We can imagine, that it could be useful to attach a monitoring or machine learning component to the service to be implemented. With a Bid Data approach we could deliver more insights on the machine to the manufacturer increasing productivity and the whole manufacturing site performance.
+					
+				\end{enumerate}
 				
 		\section{Approach} \label{sec:approach}
 		
-			Introduction to the approach chapter. Point out the proof of concept idea and that it should verify an Open Source service cloud manufacturing approach for further use.
+			With the requirements pointed out in \cref{sec:requirements} we will now present the approach used to implement and integrate the desired \gls{poc} into the \gls{rnp} platform. Using the defined requirements and Use-Cases in \cref{sec:requirements} as well as relying on the research foundations highlighted in \cref{ch:foundations} we will test the \gls{poc} against these. The developed \gls{poc} should be a service, independent of the \gls{rnp} platform to ensure a possible use on every \gls{cm} platform working with the \gls{opcua} protocol.
 		
 			\subsection{Integration} \label{subsec:integration}
 			
-				Docker, already available R'n'P Platform, etc.
+				As we distilled from the platform analysis and defined in the requirements, we will package our \gls{poc} as a service, following the \gls{soa} principles into two Docker virtualization containers. One contaier will contain the business logic of the \gls{poc} and serve its \gls{rest}-ful \gls{api}. A second container will serve the \gls{sql} database using PostgreSQL\footnote{\url{https://www.postgresql.org/}} as the \gls{rdbms}. 
+				The \gls{poc} itself will communicate with the \gls{rnp} platform by registering itself to the service discovery of the platform and beeing routable through the \gls{api} gateway already implemented as the edge entry point of the platform. 
+				The binding with the machine-tool for the \gls{poc} will be done using an external \gls{url} of the \gls{opcua} Server of the machine-tool.
 				
 			\subsection{Target Architecture} \label{subsec:target_architecture}
 			
-				Component Diagram etc.
+				As shown in \cref{fig:poc_integration_diagram}, the \gls{poc} will offer an \gls{api} to the \gls{rnp} platform to gather data and control the binded machine-tool following the approach described in \cref{subsec:integration}. The component diagram shows, that following the \gls{soa} architecture of the \gls{rnp} platform, the service can be integrated 
+				seamlessly.
+				
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{poc_integration_diagram.jpg}
+					\caption{The component diagram of the integration of the \gls{poc}.}
+					\label{fig:poc_integration_diagram}
+				\end{figure}
+			
+				As presented in \cref{fig:poc_integration_diagram} \gls{poc} service communicates with and controls the machine-tool only addressing its \gls{opcua} server. The machine-tool itself can be abstracted into three subcomponents: the \gls{opcua} server running on the controlling industrial computer attached to the physical machine-tool, the \gls{plc} and the \gls{nc} as phyisical parts of the machine-tool.
+				
+				The \gls{opcua} Server receives client requests and commands and transfers them to the \gls{plc} unit of the machine-tool. This abstraction layer ensures, that standard requests and commands sent to the server, can be translated without the knowledge of the Client of specific machine-tool configurations.
+				
+				The \gls{plc} of the machine-tool is responsable for the physical and electrical control of the manufacturing and machine-tool processes. It can execute control commands like data gathering from the machine-tool state, start- and stop of the productio and transfer data to the \gls{nc}. Processing of production parts data, planing of the milling routes for example and executing the part production is handled by the \gls{nc}. Production data is loaded from and to the \gls{nc} via the \gls{plc} and the current state is transfered to the \gls{plc} in real-time ensurring a correct monitoring of every production process.
+				
+				Making use of the \gls{opcua} specification, we can integrate the \gls{poc} and the machine-tool without adding to much of abstraction layers keeping the architecture clean, understandable and maintanable without loads of effort.
 			
 			\subsection{Services} \label{subsec:services}
 			
-				Service Component Diagram taken by the specification, describing which use-case should be handled by which service.
+				After describing the high level integration process, we now highlight the services, and \gls{api}s provided by the \gls{poc}.
+				
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{poc_services.jpg}
+					\caption{The component diagram describing service details of the \gls{poc}.}
+					\label{fig:poc_service_diagram}
+				\end{figure}
 				
 			\subsection{Workflow Concept} \label{subsec:workflow_concept}
 			
