@@ -413,12 +413,52 @@ enddate={May 22, 2018}
 				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
+	
+		
+		In this chapter we cover the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of our \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the Java programming language. In \cref{sec:docker} we highlight the trending virtualization container technology Docker. Eclipse Milo, a Java framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
 
-		\section{Spring Boot}\label{subsec:spring_boot}
+		\section{Spring Boot}\label{sec:spring_boot}
 
-		\section{Docker}\label{sec:docker}
+			The \gls{soa} of the \gls{rnp} platform was realized using the Java programming language in combination with the Spring Boot Framework\footnote{\url{https://projects.spring.io/spring-boot/}}. The framework provides enterprise ready and production based patterns and functionalities for building backend services in cloud architectures. Spring Boot provides a common abstraction layer of database entities, repositories abstracting the underlying persistence layer, services implementing the business logic and \gls{rest} controller presenting the business logic as \gls{rest}-ful \gls{api} including the mapping of different data models like \gls{json} or \gls{xml} to Java objects.
+			
+			Besides its clean architectural approach, Spring Boot provides standard enterprise pattern configurations for message broker, service discovery, performance and metrics tracing as well as custom web-server configurations with little to no configuration effort.
+
+		\section{Docker and Docker Compose}\label{sec:docker}
+		
+			Docker\footnote{\url{https://www.docker.com/}} is an open source project providing a systematic way to automate the faster deployment of Linux applications inside portable containers~\cite{bernstein2014containers}. 
+			Basically, Docker extends \gls{lxc} with a kernel-and application-level API that together run processes in isolation: \gls{cpu}, memory, disk read and write operations, network, and so on. 
+			Docker also uses namespaces to completely isolate an application’s view of the underlying operating environment, including process trees, network, user identifiers, and file systems.
+			Docker containers are created using base images.
+			A Docker image can include just the OS fundamentals, or it can consist of a sophisticated prebuilt application stack ready for launch. 
+			When building images with Docker, each action taken (that is, command executed, such as an installation of dependencies) forms a new layer on top of the previous one. 
+			Commands can be executed manually or automatically using Dockerfiles.
+			The difference between standard hypervisor virtualization and Docker containers is shown in \cref{fig:virtualization}.
+			While standard virtualization builds each operating system itself, container rely only on the presence of the Docker Engine, encapsulating services in minimal environments.
+			
+			\begin{figure}[htbp]
+				\centering
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=0.9\linewidth]{virtual_hypervisor.jpg}
+					\caption{A diagram showing the layers of a hzypervisor-based virtualization.}
+					\label{fig:hypervisor}
+				\end{subfigure}
+				\hfill
+				\begin{subfigure}{0.45\textwidth}
+					\centering
+					\includegraphics[width=0.9\linewidth]{virtual_docker.jpg}
+					\caption{A diagram showing the layers of a Docker container virtualization.}
+					\label{fig:docker}
+				\end{subfigure}
+				\caption{Diagrams showing hypervisor-based and Docker virtualization.}
+				\label{fig:virtualization}
+			\end{figure}
+			
+			Docker Compose\footnote{https://docs.docker.com/compose/} is a tool for defining and running multi-container Docker applications. It offers configuration, management and orchestration utilities for container based or hybrid architectures. Further, Docker Compose can be used to deploy Docker containers and its services to different hosting environments by guaranteeing the same deployment and service architecture on each of the different environments.
 
 		\section{Eclipse Milo}\label{sec:eclipse_milo}
+
+			Text
 
 		\section{Representional State Transfer}\label{sec:rest}
 
