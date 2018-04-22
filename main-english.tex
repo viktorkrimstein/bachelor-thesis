@@ -28,7 +28,7 @@ type=bachelor,
 institute=iste, % or other institute names - or just a plain string using {Demo\\Demo...}
 course={se},
 examiner={Prof.\ Dr.\ Stefan Wagner},
-supervisor={Dipl.-Ing.\ Wolfgang Fechner,\\Carsten Ellwein,\ M.Sc.},
+supervisor={Carsten Ellwein,\ M.Sc.,\\Dipl.-Ing.\ Wolfgang Fechner},
 startdate={November 22, 2017},
 enddate={May 22, 2018}
 ]{scientific-thesis-cover}
@@ -521,7 +521,10 @@ enddate={May 22, 2018}
 					\centering
 					\caption{Use-Case description for the upload of G-Code.}
 					\label{tab:use_case_upload}
-					\begin{tabular}{l p{11cm}}
+					\newcolumntype{L}{>{\centering\arraybackslash} m{.2\linewidth} }
+					\newcolumntype{R}{>{\centering\arraybackslash} m{.7\linewidth} }
+					\begin{tabular}{L R}%{c c}
+					% \begin{tabular}{l p{11cm}}
 						\toprule
 						Name & Upload G-Code
 						\\ \midrule
@@ -558,7 +561,10 @@ enddate={May 22, 2018}
 					\centering
 					\caption{Use-Case description for the retrieval of the current machine-tool status.}
 					\label{tab:use_case_check_machine}
-					\begin{tabular}{l p{9cm}}
+					\newcolumntype{L}{>{\centering\arraybackslash} m{.3\linewidth} }
+					\newcolumntype{R}{>{\centering\arraybackslash} m{.6\linewidth} }
+					\begin{tabular}{L R}%{c c}
+					% \begin{tabular}{l p{9cm}}
 						\toprule
 						Name & Request machine-tool status
 						\\ \midrule
@@ -597,7 +603,10 @@ enddate={May 22, 2018}
 					\centering
 					\caption{Use-Case description for transfer of G-Code to the machine-tool.}
 					\label{tab:use_case_transfer_code}
-					\begin{tabular}{l p{10cm}}
+					\newcolumntype{L}{>{\centering\arraybackslash} m{.3\linewidth} }
+					\newcolumntype{R}{>{\centering\arraybackslash} m{.6\linewidth} }
+					\begin{tabular}{L R}%{c c}
+					% \begin{tabular}{l p{10cm}}
 						\toprule
 						Name & Transfer G-Code to a Machine-Tool
 						\\ \midrule
@@ -636,7 +645,10 @@ enddate={May 22, 2018}
 					\centering
 					\caption{Use-Case description for the production control of the machine-tool.}
 					\label{tab:use_case_production_control}
-					\begin{tabular}{l p{9cm}}
+					\newcolumntype{L}{>{\centering\arraybackslash} m{.3\linewidth} }
+					\newcolumntype{R}{>{\centering\arraybackslash} m{.6\linewidth} }
+					\begin{tabular}{L R}%{c c}
+					% \begin{tabular}{l p{9cm}}
 						\toprule
 						Name & Start and Stop a part production
 						\\ \midrule
@@ -724,6 +736,15 @@ enddate={May 22, 2018}
 			\subsection{Workflow Concept} \label{subsec:workflow_concept}
 			
 				Sequence Diagram describing the whole workflow of the service and the platform from producer and consumer view.
+				
+				\begin{figure}[htbp]
+					\centering
+					\includegraphics[width=\textwidth]{part_production_sequence.jpg}
+					\caption{Sequence diagram of the general part production process.}
+					\label{fig:poc_workflow_diagram}
+				\end{figure}
+			
+				Further text on the workflow.
 				
 			\subsection{Machine Tool Integration} \label{subsec:machine_tool_intergation}
 			
