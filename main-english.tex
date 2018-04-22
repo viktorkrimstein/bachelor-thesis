@@ -196,7 +196,7 @@ enddate={May 22, 2018}
 		In the context of \gls{cm}, services with a higher degree of networking are brought to the fore.
 		Approaches in this regard often focus on the collection and analysis of data. The vision of self-steering systems that share information and make decisions without human intervention is a primary goal, but not necessarily the focus of many projects.
 		With the research project \gls{rnp}~\cite{ellwein2016} which is currently being processed at the \gls{isw}, and its available functionalities at the time of writing this thesis, manufacturers of different industries and sectors can use the cloud platform for flexible production assignment and detailed order management.
-		Furthemore, one goal of \gls{rnp} is to integrate features and functionalities to access machine tools directly from the cloud and independently of their physical location and the underlying manufacturing platforms by only relying on a homogeneous \gls{m2m} communication standards.
+		Furthermore, one goal of \gls{rnp} is to integrate features and functionalities to access machine tools directly from the cloud and independently of their physical location and the underlying manufacturing platforms by only relying on a homogeneous \gls{m2m} communication standards.
 
 		Unfortunately, the last requirement is quite a difficult one as manufacturers show a huge heterogeneity in the ways and protocols, the machine tools support for communication and data access~\cite{xu2012cloud}.
 		Tackling this challenge two specifications emerged within the last years.
@@ -390,7 +390,7 @@ enddate={May 22, 2018}
 				\begin{figure}[htbp]
 					\centering
 					\includegraphics[width=\textwidth]{opc_ua_server_model.jpg}
-					\caption{The \gls{opcua} server architecture adapted from~\cite{opcfoundation2017part1}.}
+					\caption{The OPC UA server architecture adapted from~\cite{opcfoundation2017part1}.}
 					\label{fig:opc_ua_server_model}
 				\end{figure}
 
@@ -401,7 +401,7 @@ enddate={May 22, 2018}
 				\begin{figure}[htbp]
 					\centering
 					\includegraphics[width=\textwidth]{opc_ua_client_model.jpg}
-					\caption{The \gls{opcua} client architecture adapted from~\cite{opcfoundation2017part1}.}
+					\caption{The OPC UA client architecture adapted from~\cite{opcfoundation2017part1}.}
 					\label{fig:opc_ua_client_model}
 				\end{figure}
 
@@ -458,52 +458,88 @@ enddate={May 22, 2018}
 
 		\section{Eclipse Milo}\label{sec:eclipse_milo}
 
-			Text
+			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the Java programming language. 
+			It includes a high-performance stack (channels, serialization, data structures, security) as well as client and server libraries built on top of the stack.
+			While this project has existed for some time, it is new to the Eclipse foundation and is therefore considered to be in incubation\footnote{\url{https://projects.eclipse.org/proposals/milo}}.
+			
+			For the implementation part of this work, we will use this library as our research has shown, that Eclipse Milo implements the full \gls{opcua} specification providing simple abstraction layers to ease a simple interaction with the machine-tools and its' \gls{plc}s.
 
 		\section{Representional State Transfer}\label{sec:rest}
 
-			Description of \gls{rest} using~\cite{fielding2000architectural}.
+			\gls{rest} is a pattern of resource operations that has emerged as a \textit{de facto} standard for service design in Web 2.0 applications~\cite{battle2008bridging}. Whereas the traditional approaches to Web Services uses full-blown remote objects with remote method invocation and encapsulated functionality, \gls{rest} deals only with data structures and the transfer of their state~\cite{fielding2000architectural}.
+			
+			At the core of \gls{rest} based design is a set of state transfer operations universal to any data storage and retrieval system.
+			These operations, as commonly interpreted on the web, are referred to by the acronym \gls{crud}~\cite{battle2008bridging}.
+			The Web 2.0 community has adopted an informal mapping of \gls{crud} operations onto the commands provided by the \gls{http} protocol: POST, GET, PUT, and DELETE, respectively. 
+			These commands identify the particular \gls{crud} operation being requested of the resource identified by the \gls{url} endpoint.
+			\Cref{tab:http_rest_mapping} shows the mapping between \gls{rest} and the \gls{http} protocol.
+			
+			\begin{table}[hbtp]
+				\centering
+				\caption{HTTP to REST Mapping}
+				\label{tab:http_rest_mapping}
+				\begin{tabular}{@{}llll@{}}
+					\toprule
+					\gls{crud} operations & \gls{http} command & Input format & Output format
+					\\ \midrule
+					Create & POST & \gls{http} Form Encoded & Status 201 CREATED
+					\\ \midrule
+					Read & GET & None & Determined by request headers 
+					\\ \midrule
+					Update & PUT & \gls{http} Form Encoded & Status 200 OK
+					\\ \midrule
+					Delete & DELETE & None & Status 200 OK
+					\\ \bottomrule
+				\end{tabular}
+			\end{table}
 
-	\chapter{State of the Science} \label{ch:state_of_the_Science}
+	\chapter{State of Research} \label{ch:state_of_the_Science}
 
-		Show the current stae of the science.
+		This chapter highlights related research and work respective to this thesis. \Cref{sec:state_of_science_cloud_manufacturing} summarizes the current state of \gls{cm}. In \cref{sec:control_engineering_in_the_cloud} we give a brief overview over the state of control engineering from the cloud. We close this chapter by providing information about the current research state on \gls{m2m} communication protocols in~\cref{sec:machine_to_machine_communication}.
 
-		\section{Cloud Manufacturing}\label{sec:state_of_science_cloud_manufacturing}
+		\section{State of Research in Cloud Manufacturing}\label{sec:state_of_science_cloud_manufacturing}
 
-			Summary over the following papers:
+			As a new IT paradigm, cloud computing is being increasingly adopted to transform the way that \gls{it} resources are utilised and consumed~\cite{li2010cloud}. 
+			Consequently, the manufacturing industry is exploring cloud computing in order to improve existing manufacturing structures and enterprise systems, to
+			share and provide on-demand networked manufacturing services, and to better satisfy specific manufacturing enterprise needs~\cite{he2015state}.
+			So far researchers have proposed a number of new techniques and approaches to encapsulate various virtualized manufacturing resources and capabilities as cloud-based services and to implement enterprise \gls{cm} service frameworks and platforms~\cite{tao2011cloud}.
+			
+			But as the use of these new paradigms gets more and more common, challenges for \gls{cm} service models and production sites arise~\cite{brettel2014virtualization}.
+			Networked manufacturing for example, lacks strong management mechanisms and efficient tools to coordinate large-scale distributed resources, services and operations~\cite{xu2012cloud}.
+			
+			Besides the lack of management and control mechanisms in \gls{cm} multivendor systems and heterogeneous infrastructure on production sites pose additional challenges on the \gls{cm} research field~\cite{weyer2015towards}.
+			The specification of standard communication protocols and data models gains a fast growing role in the automation~\cite{jazdi2014cyber} and \gls{cm} field~\cite{wollschlaeger2017future}.
+			
+			Further, security gets more and more relevance in \gls{cm} field.
+			In a traditional on-premise application deployment model, the sensitive data of each enterprise continues to reside within the enterprise boundary and is subject to its physical, logical and personnel security and access control policies~\cite{jeschke2017industrial}. 
+			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{subashini2011survey}.
+			Consequently, the \gls{saas} vendor must adopt additional security checks to ensure data security and prevent breaches due to security vulnerabilities in the application or through malicious employees.
 
-			\begin{itemize}
-
-				\item Industry 4.0 changes through network~\cite{brettel2014virtualization}
-
-				\item Automation~\cite{jazdi2014cyber}
-
-				\item Multivendor system challenges~\cite{weyer2015towards}
-
-				\item Cloud Computing Security~\cite{subashini2011survey}
-
-				\item Security SCADA and production systems~\cite{igure2006security}
-
-				\item CM Survey~\cite{he2015state}
-
-				\item CM Service Models~\cite{li2010cloud}
-
-				\item From Cloud Computing to Cloud Manufacturing~\cite{xu2012cloud}
-
-				\item Communication protocolls~\cite{wollschlaeger2017future}
-
-				\item Industrial Internet of Things~\cite{jeschke2017industrial}
-
-			\end{itemize}
+	\newpage
 
 		\section{Control Engineering in the Cloud}\label{sec:control_engineering_in_the_cloud}
 
-			Describing the current state of Control Engineering and Automation from the Cloud.
-			ISW project Picasso and TSN related fields.
+			We mentioned in~\cref{sec:state_of_science_cloud_manufacturing}, that with the emerging of cloud computing patterns in the manufacturing field, control engineers as well try to move their field of automation to the cloud.
+			As discussed in~\cite{jazdi2014cyber}, an approach that implements the concept of \gls{plc} in a \gls{xaas} manner was provided by their work. 
+			The result presented in ~\cite{jazdi2014cyber} is a \gls{cps} including control over \gls{plc}s, implementing concepts of cloud computing and provided using the cloud computing service models. 
+			Not taking performance and real-time computing requirements into account, this paper shows that a shift to the cloud in the automation field can be realized.
+			
+			Another research project which has automation and control using \gls{plc}s as a focus is the project piCASSO currently researched at the \gls{isw}~\cite{kretschmer2016communication}.
+			Its goal is the auto-provisioning \gls{cps} to manufacturing sites.
+			A platform based on a \gls{soa}, which coordinates a robot remotely through the cloud, has been presented in~\cite{kretschmer2016communication}. 
+			Showing different approaches of networking in the automation field, the results several new points of interest to researchers in this field.
 
 		\section{Machine-to-Machine Communication}\label{sec:machine_to_machine_communication}
-
-			Describe the field of M2M by referencing the purposes of OPC UA and other currently available standards. Papers:
+			
+			Many \gls{cps} are sensor-rich distributed real-time embedded systems that closely interact with the physical world~\cite{kang2012rdds}. 
+			In such systems, numerous entities cooperate with each other to achieve their common goals. 
+			They collect data from the physical world using sensors and feed the sensor data into computing resources, which in turn make real-time decisions in cooperation by sharing data and information among participating entities.
+			
+			In the context of \gls{cm} and control engineering from the cloud, researchers focus on the definition of standard \gls{m2m} communication protocols tackling on exactly these problems.
+			Respectively, two protocols emerged for the manufacturing field trying to fulfill the needs of manufacturers -- \gls{opcua} and \gls{dds}~\cite{jazdi2014cyber}.
+			While \gls{opcua} is largely adapted by European manufacturers, \gls{dds} is more popular at manufacturers in the United States.
+			\gls{opcua} builds a whole abstraction model containing, communication and data structures~\cite{candido2010soa}.
+			\gls{dds} on the other hand offers a more simple and unopinionated model provided by an object definition and abstraction model.
 
 	\chapter{Concept} \label{ch:concept}
 
