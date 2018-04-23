@@ -88,15 +88,16 @@ enddate={May 22, 2018}
 
 	\section*{Kurzfassung}
 
-		Im Rahmen von Industrie 4.0 werden Services einhergehend mit einem höheren Vernetzungsgrad in den Vordergrund gerückt.
-		Die Vision sich selbst steuernder Systeme, die ohne menschliches Zutun Informationen austauschen und Entscheidungen treffen, ist zwar übergeordnetes Ziel, steht aber nicht unbedingt im Fokus vieler Projekte.
+		In heutigen Unternehmen werden zunehmend Konzepte und Technologien des Cloud Computing implementiert. 
+		Hierbei können Speicher- und Rechenkapazitäten von Drittanbietern in die eigenen Unternehmensprozesse eingebunden und nach Belieben skaliert werden. 
+		Im Rahmen der Industrie 4.0 finden Cloud Computing Paradigmen zunehmend auch im Automatisierungs- und Steuerungsumfeld ihre Verwendung. Steuerungssystem, die ganz ohne menschliches Zutun Produktionsprozesse abbilden und durchführen können, stehen jedoch nicht im Fokus aktueller Forschungsprojekte.
 
-		Das Forschungsprojekt \glqq Rent'n'Produce: Sicherer Cloudservice zur Beauftragung und Steuerung von Fertigungssystemen\grqq{} das aktuell am Institut für Steuerungstechnik der Werkzeugmaschinen und Fertigungseinrichtungen der Universität Stuttgart bearbeitet wird, hat die Vision sich selbst steuernder Fertigungssysteme voranzutreiben.
-		Unternehmen unterschiedlicher Branchen soll eine cloudbasierte Plattform zu Verfügung gestellt werden, mit der eine hochflexible Fertigungsbeauftragung möglich ist, ebenso wie der administrative Zugriff auf Produktionsressourcen.
+		Das Forschungsprojekt \glqq Rent'n'Produce: Sicherer Cloudservice zur Beauftragung und Steuerung von Fertigungssystemen\grqq{} das aktuell am Institut für Steuerungstechnik der Werkzeugmaschinen und Fertigungseinrichtungen der Universität Stuttgart bearbeitet wird, will genau diese Lücke schließen.
+		Konsumenten und Produzenten unterschiedlicher Wirtschaftszweige soll eine cloudbasierte Plattform zu Verfügung gestellt werden, mit der Automatisierungsprozesse bis hin zu administrativen Operationen auf Produktionsressourcen realisiert werden können.
 
 		Ziel dieser Arbeit ist die Anbindung einer realen Werkzeugmaschine basierend auf der Open Platform Communications Unified Architecture an Rent'n'Produce umzusetzen.
-		Die benötigte Funktionalität der Anbindung soll dabei in einem Virtualisierungscontainer gekapselt werden.
-		Diese Middleware soll den Zugriff auf Konfigurations- und Zustandsdaten der Produktionsressource, die Übertragung von Programmen für numerische Steuerungen auf die Maschine und das Starten wie Stoppen der Bearbeitung ermöglichen.
+		Die benötigte Funktionalität der Anbindung soll dabei in einem Virtualisierungscontainer gekapselt und über eine standardisierte Webschnittstelle zur Verfügung gestellt werden.
+		Diese Middleware soll den Zugriff auf Konfigurations- und Zustandsdaten der Produktionsressource, die Übertragung von Programmen für numerische Steuerungen auf die Maschine sowie das Starten wie Stoppen Fertigungsschritten ermöglichen.
 
 	\cleardoublepage
 
@@ -204,9 +205,9 @@ enddate={May 22, 2018}
 
 		\section{Motivation}\label{sec:motivation}
 
-			\gls{cm} is a concept which aims to transform the traditional manufacturing process into the cloud and enable users of \gls{cm} platforms a comfortable and more efficient way to manage manufacturing resources and production control~\cite{xu2012cloud}.
-			By adapting principles of cloud computing, manufacturers are given the possibility to track, manage and control their machine-tools and manufacturing units remotely~\cite{tao2011cloud}.
-			It is possible to follow the whole manufacturing process through the whole automation pyramid allowing manufacturers to scale and schedule their production planning and execution according to customers' needs~\cite{tao2011cloud}.
+			\gls{cm} is a concept providing a model to transition traditional manufacturing processes into the cloud while enabling users of \gls{cm} platforms a cost-effective and efficient way to manage manufacturing resources, production workflows and control units~\cite{xu2012cloud}.
+			By adapting principles of cloud computing, manufacturers are given the possibility to track, manage and control their machine-tools and manufacturing units remotely~\cite{wu2013cloud}.
+			It is possible to follow the whole manufacturing process through the whole automation pyramid allowing manufacturers to scale and schedule their production planning and execution according to customers' needs~\cite{kleinemeier2014automatisierungspyramide}.
 
 			Currently the most Use-Cases of \gls{cm} platform focus on the retrieval and gathering of data from machine-tools.
 			Remote control of the machines and manufacturing processes beyond company boundaries is not in the focus of research.
@@ -316,17 +317,16 @@ enddate={May 22, 2018}
 
 		\section{Cloud Manufacturing}\label{sec:cloud_manufacturing}
 
-			\gls{cm} is a networked manufacturing paradigm which has emerged due to the introduction of cloud computing concepts and technologies, such as resource pooling, virtualization, \gls{soa} and the concepts described in \cref{sec:cloud_computing}~\cite{macia2012cloud}.
-			It refers to the distribution of manufacturing resources via the internet and allow users access to manufacturing services in a flexible and location independent (only limited by the real-time connectivity required) way, using a \gls{xaas} payment model only for the time resource are occupied~\cite{macia2012cloud}.
+			With the broad adoption of cloud computing concepts and technology in the software industry, especially the use of virtualization, shared resources, outsourcing of high performance workloads, \gls{soa} and the concepts described in \cref{sec:cloud_computing}, \gls{cm} emerged and is getting adapted more and more in the production environment~\cite{he2015state}. \gls{cm} models the relocation of production resources via the internet either at times of equipment peaks or from cost reasons~\cite{wu2013cloud}. Further, \gls{cm} allows its users to access a pool of manufacturing services and resources in a flexible and location independent (only limited by the real-time connectivity required) manner, using an \gls{xaas} payment model only taking the usage time into account~\cite{macia2012cloud}.
 
 			Services offered to the manufactures range from product design and development to manufacturing production of the requested parts~\cite{xu2012cloud}. The provided resources  are managed and encapsulated in a centralized way through the whole automation pyramid~\cite{kleinemeier2014automatisierungspyramide}.
 			In a \gls{cm} system, three types of users and roles are defined -- providers, consumers and operators~\cite{wu2013cloud}.
 
 			Providers offer manufacturing resources on the platform.
-			They can take the form of a single person, a whole organization or a third party~\cite{tao2014cciot}.
-			Consumers are users who subscribe to manufacturing services offered by the platform and pay for the usage time~\cite{he2015state}.
-			The responsibility of operators is to operate the platform to deliver services which can be used by providers and consumers.
-			The operator is also responsible to maintain the technologies and service stack involved within the platform as well as the platform architecture and design~\cite{tedeschi2015security}.
+			Their roles and respective representations can vary from private customers, small business to specialized manufacturing service providers~\cite{tao2014cciot}.
+			Clients occupy and use the manufacturing resources provided by the platform by paying for the usage time of the specific machine-tools~\cite{he2015state}.
+			Last but not least operators are responsible for operating and maintaining the services provided on the platform as well as to deliver services which can be used by both parties mentioned above~\cite{xu2012cloud}.
+			Moreover, operators are hold accountable to maintain and modernize the service stack within the platform including, architecture, technologies and security related methodologies~\cite{tedeschi2015security}.
 
 			\begin{figure}[htbp]
 				\centering
@@ -336,19 +336,20 @@ enddate={May 22, 2018}
 			\end{figure}
 
 			The architecture of a \gls{cm} platform shown in \cref{fig:cloud_manufacturing} is constructed by the following four tiers and three domains: the manufacturing resource layer, virtual service layer, global service layer and the application layer~\cite{wu2013cloud}.
-			In the manufacturing resource layer, resources which are required for the product life cycle of the production, including machine-tools, gateways and administration tools, are provided.
-			Resources can either be physical resources or machine-tools in general, as well as abstracted manufacturing capabilities~\cite{kleinemeier2014automatisierungspyramide}.
+			The product life cycle of manufacturing, including machine-tools, gateways and administration tools, is represented by the provider domain and offered by the manufacturing resource layer.
+			Resources can either be any kind of \gls{cps} as well as generalized and abstracted manufacturing capabilities~\cite{kleinemeier2014automatisierungspyramide}.
 			Manufacturing resources include for instance equipment, servers or \gls{plc} units~\cite{xu2012cloud}.
-			With abstract manufacturing capabilities, producers and manufacturer offer the possibility for executing a special task and can include the cycles of product design and development, production, control and so on~\cite{he2015state}.
-
-			With the virtual service layer, manufacturing resources are identified, abstracted, virtualized and offered as \gls{cm} services. tedeschi2015security
-			Further, these \gls{cm} services are offered to customers relying on the platform and can be paid by its users on demand~\cite{tedeschi2015security}.
-			The global service layer relies on cloud deployment technologies which are necessary to run the system and bridges the provider and customer domains.
-			Cloud deployment technologies can be for instance an \gls{iaas} or a \gls{paas} offering, as described in~\cref{sec:cloud_computing}.
-			The global service layer can operate in two operation modes -- complete service mode and partial service mode.
+			
+			Abstract manufacturing capabilities describe the ability of producers and manufacturer to offer the possibility for executing specialized, non typical tasks including the associated design, planning and management processes culminating in production site specific hardware and administration tools~\cite{he2015state}.
+			The virtual service layer concludes the provider domain by abstracting the underlying manufacturing resource layer and acting as an interface for the global service layer~\cite{xu2012cloud}.
+			
+			Cloud deployment technologies necessary to run the whole \gls{cm} system and to bridge the provider and user domains are implemented by the global service layer.
+			By mentioning cloud deployment technologies we refer to \gls{iaas} or a \gls{paas} offering, as described in~\cref{sec:cloud_computing}.
+			Two operational modes are enabled for the global service layer -- complete service mode and partial service mode.
 			The complete service mode orchestrates all manufacturing processes itself~\cite{xu2012cloud}.
-			In the partial service mode, it is possible for providers to take control over the processes at system scope where the global service layer supports the management and oraganization of these processes.
-			Finally, the application layer is responsible for the interaction between the end-user and the manufacturing resources~\cite{xu2012cloud}.
+			In the partial service mode, it is possible for providers to take control over the processes at system scope where the global service layer supports the management and organization of these processes.
+			
+			Finally, the application layer rounds off the \gls{cm} model by being responsible for end-user demand and manufacturing process management mapping~\cite{xu2012cloud}.
 
 		\section{OPC UA} \label{sec:opc_ua}
 
