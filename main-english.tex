@@ -237,8 +237,6 @@ enddate={May 22, 2018}
 
 			\end{itemize}
 
-	\newpage
-
 		\section{Structure}
 
 			This thesis is structured as follows: In \Cref{ch:foundations}, we describe in detail the scope and the research field of this work.
@@ -263,16 +261,17 @@ enddate={May 22, 2018}
 		\section{Rent'n'Produce}\label{sec:rent_n_produce}
 
 			The research project \gls{rnp} of the \gls{isw} draws on the existing infrastructure and networking in manufacturing companies and relies on a cloud-based platform for the commissioning of machine-tools and equipment~\cite{xen.17b}. The declared goal of the research project is a highly flexible, location-independent production order across company boundaries. The production parts' description required for commissioning can be present in the form of \gls{cad} data or \gls{nc} programs and transmitted to the system by the client.
-			The provided functionality of the \gls{rnp} platform at the beginning of this work is as show in \Cref{fig:rnp_workflow}.
+			
+			The provided functionality of the \gls{rnp} platform at the beginning of this work is as show in \Cref{fig:rnp_workflow}. \Cref{fig:rnp_workflow} in \gls{uml}-like syntax for Interaction Diagrams, as described in~\cite{uml2017}, the interactions of the different entities in the \gls{rnp} platform. The \gls{rnp} platfrom provides its' functionalities in a cyclic manner. As shown in \cref{fig:rnp_workflow}, Producers can signal the \gls{rnp} resource management, their current production state and machine-tool occupation. The \gls{rnp} middleware then can signal the Customers, that potentially manufacturing resources are available from the produces or even multiple producers. In the top-down order, \cref{fig:rnp_workflow} shows, that Customers can assign prodution order to one or multiple Producers, using the Resource Assignment Layer of the \gls{rnp} platform.
 
 			\begin{figure}[htbp]
 				\centering
 				\includegraphics[width=\textwidth]{rnp_workflow.jpg}
-				\caption{The workflow of the R'n'P platform.}
+				\caption{The workflow of the R'n'P platform adapted from~\cite{ellwein2016}.}
 				\label{fig:rnp_workflow}
 			\end{figure}
 
-			Before commissioning the selected resource at the shop floor level, the production part descriptions have to go through a postprocessor and then to be adapted to the selected production resource from the resource catalog.
+			Before commissioning the selected resource at the shop floor level (the production level at the Producers' manufacturing site), the production part descriptions have to go through a postprocessor and then to be adapted to the selected production resource from the resource catalog.
 			This thesis deals with the transfer of existing G-Code data to a production resource.
 			The postprocessing of workpiece descriptions is part of a parallel research project.
 
@@ -280,7 +279,9 @@ enddate={May 22, 2018}
 
 			The architecture is based on several services which work independently of each other following a \gls{soa} approach~\cite{erl2008soa}.
 			Each service is split up in a persistence layer and a business logic layer making its functionality accessible to other services using an \gls{api}.
-			A simplified view on the architecture of \gls{rnp} is shown in \Cref{fig:rnp_architecture}.
+			A simplified view on the architecture of \gls{rnp} is shown in \cref{fig:rnp_architecture} described as \gls{uml} Component Diagram following~\cite{uml2017}.
+			
+			The persistence layer, shown in \cref{fig:rnp_architecture}, contains the databases (\gls{sql} or \gls{nosql}) for the different services in the overall \gls{soa}. These databases offer their \gls{api}s to the Service Layer, implementing the business logic of the whole \gls{rnp} platform. As presented in \cref{fig:rnp_architecture}, the service layer is encapsulated by the \gls{api} Gateway Component, briding the \gls{api}s of the \gls{rnp} platform to the Web Interface, shown to the end-users of \gls{rnp}.
 
 			\begin{figure}[htbp]
 				\centering
@@ -313,8 +314,6 @@ enddate={May 22, 2018}
 
 			As shown in \cref{sec:rent_n_produce}, the \gls{rnp} cloud platform is built upon a \gls{iaas} layer providing its functionality over the \gls{paas} and \gls{saas} models. The goals and motivations of this work, can be related to the \gls{paas} model, as machin-tools and manufacturing sites should be provisioned over the services provided by the platform.
 
-	\newpage
-
 		\section{Cloud Manufacturing}\label{sec:cloud_manufacturing}
 
 			With the broad adoption of cloud computing concepts and technology in the software industry, especially the use of virtualization, shared resources, outsourcing of high performance workloads, \gls{soa} and the concepts described in \cref{sec:cloud_computing}, \gls{cm} emerged and is getting adapted more and more in the production environment~\cite{he2015state}. \gls{cm} models the relocation of production resources via the internet either at times of equipment peaks or from cost reasons~\cite{wu2013cloud}. Further, \gls{cm} allows its users to access a pool of manufacturing services and resources in a flexible and location independent (only limited by the real-time connectivity required) manner, using an \gls{xaas} payment model only taking the usage time into account~\cite{macia2012cloud}.
@@ -327,15 +326,8 @@ enddate={May 22, 2018}
 			Clients occupy and use the manufacturing resources provided by the platform by paying for the usage time of the specific machine-tools~\cite{he2015state}.
 			Last but not least operators are responsible for operating and maintaining the services provided on the platform as well as to deliver services which can be used by both parties mentioned above~\cite{xu2012cloud}.
 			Moreover, operators are hold accountable to maintain and modernize the service stack within the platform including, architecture, technologies and security related methodologies~\cite{tedeschi2015security}.
-
-			\begin{figure}[htbp]
-				\centering
-				\includegraphics[width=\textwidth]{cloud_manufacturing.jpg}
-				\caption{Architecture of a cloud manufacturing system adapted from~\cite{xu2012cloud}.}
-				\label{fig:cloud_manufacturing}
-			\end{figure}
-
-			The architecture of a \gls{cm} platform shown in \cref{fig:cloud_manufacturing} is constructed by the following four tiers and three domains: the manufacturing resource layer, virtual service layer, global service layer and the application layer~\cite{wu2013cloud}.
+			
+			The architecture of a \gls{cm} platform shown in \cref{fig:cloud_manufacturing} in a \gls{uml}-like Interaction Diagram following~\cite{uml2017} is constructed by the following four tiers and three domains: the manufacturing resource layer, virtual service layer, global service layer and the application layer~\cite{wu2013cloud}.
 			The product life cycle of manufacturing, including machine-tools, gateways and administration tools, is represented by the provider domain and offered by the manufacturing resource layer.
 			Resources can either be any kind of \gls{cps} as well as generalized and abstracted manufacturing capabilities~\cite{kleinemeier2014automatisierungspyramide}.
 			Manufacturing resources include for instance equipment, servers or \gls{plc} units~\cite{xu2012cloud}.
@@ -350,26 +342,40 @@ enddate={May 22, 2018}
 			In the partial service mode, it is possible for providers to take control over the processes at system scope where the global service layer supports the management and organization of these processes.
 			
 			Finally, the application layer rounds off the \gls{cm} model by being responsible for end-user demand and manufacturing process management mapping~\cite{xu2012cloud}.
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=\textwidth]{cloud_manufacturing.jpg}
+				\caption{Architecture of a cloud manufacturing system adapted from~\cite{xu2012cloud}.}
+				\label{fig:cloud_manufacturing}
+			\end{figure}
 
 		\section{OPC UA} \label{sec:opc_ua}
 
-			The \gls{opcua} is the new version of the well-known \gls{opc} architecture originally designed by the \gls{opc} Foundation to
-			connect industrial devices to control and supervision applications~\cite{hadlich2006providing}. The focus of \gls{opc} is on getting access to large amounts of real-time data while ensuring performance constraints without disrupting the normal operation of the devices~\cite{candido2010soa}.
+			The \gls{opcua} is the new version of the well-known \gls{opc} architecture~\cite{hadlich2006providing} originally designed by the \gls{opc} Foundation to connect industrial devices to control and supervision applications~\cite{henssen2014online}. 
+			The focus of \gls{opc} is on getting access to large amounts of real-time data while ensuring performance constraints without disrupting the normal operation of the devices~\cite{candido2010soa}.
 			The original \gls{opc} specifications, based on Microsofts \gls{com}, are becoming obsolete and are gradually being replaced by new interoperability standards, including web-services what led the \gls{opc} Foundation to publish a new architecture, called \gls{opcua}~\cite{hadlich2006providing}.
+			
+			\paragraph{Notice} The following two figures, shown in~\cref{fig:opc_ua_server_model} and~\cref{fig:opc_ua_client_model} were cited with the kind permission of the \gls{opc} Foundation to cite this images by referencing the origin \gls{opcua} Specification Part referenced in~\cite{opcfoundation2017part1}.
 
 			\subsection{Server Model}\label{subsec:opc_ua_server_model}
 
 				\gls{opcua} specifies the exchange of real-time information of production plant data between control devices or \gls{it} systems from different manufacturers~\cite{venkatesh2005validating}.
-				The communication is established by a \textit{inverted} client-server system, where the client triggers actions on the server for automation control, and the server executes the commands on, or retrieves data from the underlying machine~\cite{imtiaz2013scalability}.
-				\gls{opcua} server include an information model that allows users to organize data and their semantics in a structured manner.
+				The communication is established by an \textit{inverted} client-server system, where the client triggers actions on the server for automation control, and the server executes the commands on, or retrieves data from the underlying machine~\cite{imtiaz2013scalability}.
+				
+				\Cref{fig:opc_ua_server_model} shows the \gls{opcua} Server Model according to its specification in~\cite{opcfoundation2017part1}.
+				\gls{opcua} servers include an information model that allows users to organize data and their semantics in a structured manner.
+				This semantic \textit{AddressSpace} is constructed of standalone or interconnected \textit{Node}s mapped to real \gls{cps} object representatives as shown in~\cref{fig:opc_ua_server_model}.
+				Furthermore, nodes can be divided into functionality and view nodes, each sort implementing different functionalities and manners of user interaction. Further, each node can be monitored and subscribed by parties of interest using the \gls{opcua} Server \gls{api} as presented at the bottom of~\cref{fig:opc_ua_server_model}.
 				The information model constitutes the address spaces of \gls{opcua} servers.
 				It is a fullmesh network of nodes with their properties and relations.
-				In general, users create the information model for their \gls{opcua} servers manually at implementation time or implement vendor-specific automatisms~\cite{henssen2014online}.
+				
+				In general, users create the information model for their \gls{opcua} servers manually at implementation time or implement vendor-specific automatism~\cite{henssen2014online}.
 				A server address space consists of the following element types which are shown in \Cref{fig:opc_ua_server_model}.
 
 				\begin{itemize}
 
-					\item \textit{Object}: ``A \textit{Node} that represents a physical or abstract element of a system. Objects are modelled using the \gls{opcua} \textit{Object Model}. Systems, subsystems and devices are examples of Objects. An Object may be defined as an instance of an ObjectType.`'~\cite{opcfoundation2017part1}
+					\item \textit{Object}: ``A \textit{Node} that represents a physical or abstract element of a system. Objects are modeled using the \gls{opcua} \textit{Object Model}. Systems, subsystems and devices are examples of Objects. An Object may be defined as an instance of an ObjectType.`'~\cite{opcfoundation2017part1}
 
 					\item \textit{ObjectType}: ``A Node that represents the type definition
 					for an Object.`'~\cite{opcfoundation2017part1}
@@ -397,7 +403,17 @@ enddate={May 22, 2018}
 
 			\subsection{OPC UA Client Model}\label{subsec:opc_ua_client_model}
 
-				The \gls{opcua} Client architecture models the Client endpoint of client/server interactions. \Cref{fig:opc_ua_client_model} illustrates the major elements of a typical Client and how they relate to each other.
+				The \gls{opcua} Client architecture models the Client endpoint of client/server interactions.
+				\Cref{fig:opc_ua_client_model} illustrates the major elements of a typical Client and how they relate to each other.
+				As presented in~\cref{fig:opc_ua_client_model}, the \gls{opcua} Client is constructed by two layers -- the Client Application and the \gls{opcua} Client \gls{api}. The Client Application encapsulates the producer–consumer service functionality by accessing the underlying \gls{opcua} Client-\gls{api} following the asynchronous system designs described in~\cite{tanenbaum2007distributed}.
+				
+				Further, the Client Application is the code that implements the function of the Client.
+				It uses the Client \gls{api} to send and receive \gls{opcua} Service requests and responses to the Server.
+				The Services defined for \gls{opcua} are described in Clause 6.4 of~\cite{opcfoundation2017part4}.
+				Note that the ``Client API`' is an internal interface that isolates the Client application code from an \gls{opcua} Communication Stack.
+				
+				The \gls{opcua} Communication Stack converts Client \gls{api} calls into Messages and sends them through the underlying communications entity to the Server at the request of the Client application.
+				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
 
 				\begin{figure}[htbp]
 					\centering
@@ -406,21 +422,13 @@ enddate={May 22, 2018}
 					\label{fig:opc_ua_client_model}
 				\end{figure}
 
-				The Client Application is the code that implements the function of the Client.
-				It uses the Client \gls{api} to send and receive \gls{opcua} Service requests and responses to the Server.
-				The Services defined for \gls{opcua} are described in Clause 6.4 of~\cite{opcfoundation2017part4}.
-				Note that the ``Client API`' is an internal interface that isolates the Client application code from an \gls{opcua} Communication Stack.
-				The \gls{opcua} Communication Stack converts Client \gls{api} calls into Messages and sends them through the underlying communications entity to the Server at the request of the Client application.
-				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
-
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
-		
-		In this chapter we cover the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of our \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the Java programming language. In \cref{sec:docker} we highlight the trending virtualization container technology Docker. Eclipse Milo, a Java framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
+		In this chapter we cover the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of our \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the Java~\cite{java2015} programming language. In \cref{sec:docker} we highlight the trending virtualization container technology Docker. Eclipse Milo, a Java~\cite{java2015} framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
 
 		\section{Spring Boot}\label{sec:spring_boot}
 
-			The \gls{soa} of the \gls{rnp} platform was realized using the Java programming language in combination with the Spring Boot Framework\footnote{\url{https://projects.spring.io/spring-boot/}}. The framework provides enterprise ready and production based patterns and functionalities for building backend services in cloud architectures. Spring Boot provides a common abstraction layer of database entities, repositories abstracting the underlying persistence layer, services implementing the business logic and \gls{rest} controller presenting the business logic as \gls{rest}-ful \gls{api} including the mapping of different data models like \gls{json} or \gls{xml} to Java objects.
+			The \gls{soa} of the \gls{rnp} platform was realized using the Java~\cite{java2015} programming language in combination with the Spring Boot Framework\footnote{\url{https://projects.spring.io/spring-boot/}}. The framework provides enterprise ready and production based patterns and functionalities for building backend services in cloud architectures. Spring Boot provides a common abstraction layer of database entities, repositories abstracting the underlying persistence layer, services implementing the business logic and \gls{rest} controller presenting the business logic as \gls{rest}-ful \gls{api} including the mapping of different data models like \gls{json} or \gls{xml} to Java~\cite{java2015} objects.
 			
 			Besides its clean architectural approach, Spring Boot provides standard enterprise pattern configurations for message broker, service discovery, performance and metrics tracing as well as custom web-server configurations with little to no configuration effort.
 
@@ -433,8 +441,13 @@ enddate={May 22, 2018}
 			A Docker image can include just the OS fundamentals, or it can consist of a sophisticated prebuilt application stack ready for launch. 
 			When building images with Docker, each action taken (that is, command executed, such as an installation of dependencies) forms a new layer on top of the previous one. 
 			Commands can be executed manually or automatically using Dockerfiles.
+			
 			The difference between standard hypervisor virtualization and Docker containers is shown in \cref{fig:virtualization}.
-			While standard virtualization builds each operating system itself, container rely only on the presence of the Docker Engine, encapsulating services in minimal environments.
+			Each block, shown in~\cref{subfig:hypervisor} and~\cref{subfig:docker} describes a physical or software layer, of the virtualization process. 
+			By referencing the hardware layer, we refer to the underlying physical device either represented by a server or general computer. 
+			The Host Operating system refers to the Operating System installed upon the underlying hardware architecture.
+			The blocks in the first virtual machine described in~\cref{subfig:hypervisor} represents a virtualized computer, containing its own Operating System, binaries containing encapsulated system functionalities to run specific software of the Operating System and the Application as the piece of software to be run in the virtual machine.
+			Analogously, these terms and symbols find their use in~\cref{subfig:docker}.
 			
 			\begin{figure}[htbp]
 				\centering
@@ -442,24 +455,25 @@ enddate={May 22, 2018}
 					\centering
 					\includegraphics[width=0.9\linewidth]{virtual_hypervisor.jpg}
 					\caption{A diagram showing the layers of a hzypervisor-based virtualization.}
-					\label{fig:hypervisor}
+					\label{subfig:hypervisor}
 				\end{subfigure}
 				\hfill
 				\begin{subfigure}{0.45\textwidth}
 					\centering
 					\includegraphics[width=0.9\linewidth]{virtual_docker.jpg}
 					\caption{A diagram showing the layers of a Docker container virtualization.}
-					\label{fig:docker}
+					\label{subfig:docker}
 				\end{subfigure}
 				\caption{Diagrams showing hypervisor-based and Docker virtualization.}
 				\label{fig:virtualization}
 			\end{figure}
 			
+			While standard virtualization builds each operating system itself, container rely only on the presence of the Docker Engine, encapsulating services in minimal environments.
 			Docker Compose\footnote{https://docs.docker.com/compose/} is a tool for defining and running multi-container Docker applications. It offers configuration, management and orchestration utilities for container based or hybrid architectures. Further, Docker Compose can be used to deploy Docker containers and its services to different hosting environments by guaranteeing the same deployment and service architecture on each of the different environments.
 
 		\section{Eclipse Milo}\label{sec:eclipse_milo}
 
-			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the Java programming language. 
+			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the Java~\cite{java2015} programming language. 
 			It includes a high-performance stack (channels, serialization, data structures, security) as well as client and server libraries built on top of the stack.
 			While this project has existed for some time, it is new to the Eclipse foundation and is therefore considered to be in incubation\footnote{\url{https://projects.eclipse.org/proposals/milo}}.
 			
@@ -515,8 +529,6 @@ enddate={May 22, 2018}
 			In a traditional on-premise application deployment model, the sensitive data of each enterprise continues to reside within the enterprise boundary and is subject to its physical, logical and personnel security and access control policies~\cite{jeschke2017industrial}. 
 			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{subashini2011survey}.
 			Consequently, the \gls{saas} vendor must adopt additional security checks to ensure data security and prevent breaches due to security vulnerabilities in the application or through malicious employees.
-
-	\newpage
 
 		\section{Control Engineering in the Cloud}\label{sec:control_engineering_in_the_cloud}
 
@@ -798,7 +810,7 @@ enddate={May 22, 2018}
 
 			\subsection{Services} \label{subsec:services}
 
-				After describing the high level integration process, we now highlight the services, and \gls{api}s provided by the \gls{poc}. \cref{fig:poc_service_diagram} shows of which services and what kind of services, the \gls{poc} will be implemented. Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot JPA interface of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to Java Entities.
+				After describing the high level integration process, we now highlight the services, and \gls{api}s provided by the \gls{poc}. \cref{fig:poc_service_diagram} shows of which services and what kind of services, the \gls{poc} will be implemented. Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot JPA interface of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to Java~\cite{java2015} Entities.
 
 				\begin{figure}[htbp]
 					\centering
@@ -838,8 +850,6 @@ enddate={May 22, 2018}
 				If the configuration check and the following persistence of the production part and the machine-tool relation is successful, the user request is finished with a positive response and the automatic production process starts.
 				The \gls{poc} checks every second, if the order of the parts to be produced is still consistent with production dates of all valid parts in the database. Is the current system time 30 minutes away from the start of the production, the system begins to transfer the G-Code data of the part to the machine-tool by firstly checking the current machine status (not including that the machine tool can be in production mode) as shown in \cref{tab:use_case_check_machine} and begins to transfer the G-Code data to the machine-tool as described in \cref{tab:use_case_transfer_code}.
 
-	\newpage
-
 				In the case, that the production paradigms are not met, the part will be rescheduled in the database to a deferred state and the manufacturer user is informed over an asynchronous message. In the other case that, all requirements are met, the production is started at the moment the system times equals the part production time. After the successful production of the part, the user is again informed over an asynchronous message.
 
 				By describing the workflow shown in \cref{fig:poc_workflow_diagram} we handled all the requirements and Use-Cases described in \cref{sec:requirements}. Further we have highlighted that with the prior knowledge of the concepts described in \cref{ch:foundations} and the analysis of the system, we are able to model an automatic manufacturing process only relying on Open Source Technologies and the \gls{opcua} specification. In \cref{subsec:machine_tool_intergation} we will describe the machine-tool integration between the \gls{rnp} \gls{opcua} Client Service running in the cloud and the machine-tool itself to finalize the whole manufacturing process model.
@@ -851,8 +861,6 @@ enddate={May 22, 2018}
 				To check the machine-tool status, the client will read the current status data from the servers AddressSpace. These variables are set machine-tool specific and have to be determined for each server and machine-tool. For our \gls{poc} we will use the Beckhoff TwinCAT V3\footnote{\url{http://www.beckhoff.de/twincat3/}} control and \gls{opcua} server for demonstration and testing purposes and describe machine-tool specific commands using its specification defined in ~\cite{twincat2018}. The machine-tool for experiment purposes is a 3-axis milling machine provided by the \gls{isw}.
 
 				The machine-tool status check is handled, using the standard \gls{opcua} client read function to determine, if the current machine state in the TwinCAT NameSpace is not of type \textit{AlarmType} in the \textit{UA\_StatusCode}. If no entry is currently provided for any of these types (described in Clause 8.2 of~\cite{twincat2018}) under the \textit{DeviceState} \gls{opcua} Object, the machine-tool has no error state and it leaves us to check, if the machine-tool is ready for part production or currently producing a part. The check if the machine-tool is currently producing a part, is done by checking, if any motion state changes arrived in the \textit{UA\_NodeGetHandleList} as if the production is ready, the event list is empty. Connectivity analysis of the machine-tool is handled implicitly as every read request of data requires a valid \gls{opcua} connection.
-
-	\newpage
 
 				Transferring a G-Code data file is handled by the \gls{poc} as follows using the provided functionality of the TwinCAT control unit and its \gls{opcua} Server:
 
@@ -891,8 +899,6 @@ enddate={May 22, 2018}
 			The \gls{opcua} functionalities of the service are encapsulated to the service as well, making it manufacturer independent as long as the manufacturers' machine-tools support the \gls{opcua} protocol.
 
 			Summing up the results, the \gls{poc} could be implemented and integrated seamlessly to the \gls{rnp} platform. With this result, we fulfill our requirement, that the \gls{poc} should be platform independent and serving a standard \gls{api}.
-
-	\newpage
 
 		\section{Use-Case Implementation}\label{sec:use_cases_implementation}
 
