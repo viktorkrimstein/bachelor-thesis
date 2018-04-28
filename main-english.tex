@@ -446,6 +446,7 @@ enddate={May 22, 2018}
 			Each block, shown in~\cref{subfig:hypervisor} and~\cref{subfig:docker} describes a physical or software layer, of the virtualization process. 
 			By referencing the hardware layer, we refer to the underlying physical device either represented by a server or general computer. 
 			The Host Operating system refers to the Operating System installed upon the underlying hardware architecture.
+			In hypervisor-based virtualization, the hypervisor is a software product, installed upon the underlying hardware and host operating system, providing hardware, network and process protocol virtualization functionalities.
 			The blocks in the first virtual machine described in~\cref{subfig:hypervisor} represents a virtualized computer, containing its own Operating System, binaries containing encapsulated system functionalities to run specific software of the Operating System and the Application as the piece of software to be run in the virtual machine.
 			Analogously, these terms and symbols find their use in~\cref{subfig:docker}.
 			
@@ -592,7 +593,7 @@ enddate={May 22, 2018}
 
 				As result of this work, we want to implement and integrate a \gls{poc} into the \gls{rnp} platform, so machine-tools can be controlled over the cloud platform.
 				Therefore, we need the possibility to transfer G-Code data to the platform and from the platform down to the machine-tools already provisioned.
-				Finally, we want to have the possibility to trigger the start or the stop of a part production manually or automatically by the main production process. \Cref{fig:use_cases} lists the emerged Use-Cases and shows their relation to each other.
+				Finally, we want to have the possibility to trigger the start or the stop of a part production manually or automatically by the main production process. \Cref{fig:use_cases} lists the emerged Use-Cases and shows their relation to each other following the \gls{uml} syntax and semantic described in~\cite{uml2017}.
 
 				\begin{figure}[htbp]
 					\centering
@@ -601,8 +602,14 @@ enddate={May 22, 2018}
 					\label{fig:use_cases}
 				\end{figure}
 
-				In the following tables -- \Cref{tab:use_case_upload,tab:use_case_check_machine,tab:use_case_transfer_code,tab:use_case_production_control}) -- we will describe the Use-Case definitions for the ones shown in \cref{fig:use_cases}. The descriptions include only the regular process flow, as the side effects are described in more detail in the specification, created during this research work.
-
+				In the following~\cref{tab:use_case_upload,tab:use_case_check_machine,tab:use_case_transfer_code,tab:use_case_production_control}) we will describe the Use-Case definitions for the ones shown in \cref{fig:use_cases}. The descriptions include only the regular process flow, as the side effects are described in more detail in the specification, created during this research work. We will highlight, that the definition of the Use-Cases to start and stop the tool production have been united into the Use-Case of the general part production as the steps are identically and only change in the control signal sent to the machine-tool. Further, the exception and error handling of these both Use-Cases is exactly the same, as in the general part production.
+				
+				To start the manufacturing process of the production of a specific part, G-Code generated through a \gls{cad}-\gls{cam} chain by the user has to be uploaded to the Machine Client Service. \Cref{tab:use_case_upload} shows the Use-Case description for this vendor task. The Upload is initiated through an \gls{http}-POST \gls{api} call to the service, which then persists the G-Code and the machine-tool configurations to its database, returning a success message in form of an \gls{http} 200 OK response to the vendor or services in general, calling the service \gls{api}.
+				After G-Code has successfully been uploaded to the platform, \cref{tab:use_case_check_machine} describes the check of the machine-tool status for further manufacturing processes. The check is described more abstract, as every supported call \gls{opcua} \gls{api} could be transmitted down to the machine.
+				
+				By positive response on the machine-tool status, we can now proceed with the transfer of G-Code down to a connected machine-tool for following part production. The transfer described in~\cref{tab:use_case_transfer_code} shows the specific roles and actors in the transfer. The G-Code is transferred to the machine tool, by opening a \textit{UA\_FileType} on the machine-tools \gls{opcua} Server, writing the persisted G-Code on the client-side to the opened file and closing the writing process by linking the new \textit{UA\_Object} respectively with its surrounding \textit{AddressSpace}.
+				Finally, when all prerequisites are met (the machine-tool status was checked and the machine-tool is available, G-Code has been persisted to the platform and transferred down to the machine-tool), we can start the (or stop an already running) part production as presented in~\cref{tab:use_case_production_control}. Here, we summarize the preconditions need to be met, as well as the way, how G-Code production has to be started on the machine-tool.
+				
 				\begin{table}[hbtp]
 					\centering
 					\caption{Use-Case description for the upload of G-Code.}
@@ -790,8 +797,10 @@ enddate={May 22, 2018}
 
 			\subsection{Target Architecture} \label{subsec:target_architecture}
 
-				As shown in \cref{fig:poc_integration_diagram}, the \gls{poc} will offer an \gls{api} to the \gls{rnp} platform to gather data and control the bound machine-tool following the approach described in \cref{subsec:integration}. The component diagram shows, that following the \gls{soa} architecture of the \gls{rnp} platform, the service can be integrated
-				seamlessly.
+				As shown in \cref{fig:poc_integration_diagram}, the \gls{uml} Component Diagram shows the \gls{poc}, which offers an \gls{api} to the \gls{rnp} platform to gather data and control the bound machine-tool following the approach described in \cref{subsec:integration}. The component diagram following the \gls{uml} syntax and semantic described in~\cite{uml2017}, shows that by adapting the \gls{soa} architecture of the \gls{rnp} platform, the service can be integrated
+				seamlessly. 
+				The \gls{opcua} Service encapsulates the \gls{opcua} functionalities into a single component, offering its \gls{api} to interested \gls{rnp} services. 
+				The machine-tool is bound to the cloud platform only by its \gls{opcua} Server.
 
 				\begin{figure}[htbp]
 					\centering
@@ -810,7 +819,9 @@ enddate={May 22, 2018}
 
 			\subsection{Services} \label{subsec:services}
 
-				After describing the high level integration process, we now highlight the services, and \gls{api}s provided by the \gls{poc}. \cref{fig:poc_service_diagram} shows of which services and what kind of services, the \gls{poc} will be implemented. Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot JPA interface of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to Java~\cite{java2015} Entities.
+				After describing the high level integration process, we now highlight the services, and \gls{api}s provided by the \gls{poc}. \cref{fig:poc_service_diagram} shows out of which services and what kind of services, the \gls{poc} will be implemented. The contenct presented in~\cref{fig:poc_service_diagram} is described using a \gls{uml} Component Diagram following~\cite{uml2017}.
+				
+				Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot JPA\footnote{\url{https://spring.io/guides/gs/accessing-data-jpa/}} interface of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to Java~\cite{java2015} Entities.
 
 				\begin{figure}[htbp]
 					\centering
@@ -830,45 +841,66 @@ enddate={May 22, 2018}
 
 			\subsection{Workflow Concept} \label{subsec:workflow_concept}
 
-				Targeting our goal to be able to upload G-Code to the \gls{rnp} platform, to transfer the G-Code to a connected machine-tool and to produce the production part described with the G-Code, we will now describe the general workflow of the whole part production of the \gls{poc} using the \gls{opcua} protocol.
+				Targeting our goal to be able to upload G-Code to the \gls{rnp} platform, to transfer the G-Code to a connected machine-tool and to produce the production part described with the G-Code, we will now describe the general workflow of the whole part production of the \gls{poc} using the \gls{opcua} protocol. The workflow is described using a \gls{uml} Sequence Diagram in~\cref{fig:poc_workflow_diagram} as specified in~\cite{uml2017}.
+				
+				\Cref{fig:poc_workflow_diagram} shows the interactions between the following four actors:
+				
+				\begin{enumerate}
+					
+					\item The \textit{Vendor}, representing a manufacturer wanting to start or stop a production workflow.
+					
+					\item The \textit{\gls{opcua} Client Service} (our \gls{poc}) integrated into the \gls{rnp} platform.
+					
+					\item The \textit{\gls{opcua} Server} attached to the machine-tool, which should produce the required part.
+					
+					\item The \textit{OSACA}, a real physical machine-tool provided by the \gls{isw} for the scope of this thesis.
+					
+				\end{enumerate}
+				
 				User interactions with the \gls{poc} are realized by triggering the \gls{rest}-ful \gls{api} provided by the \gls{poc} using \gls{json} over \gls{http} as communication base.
 				System information related to other components of the system and to the user are implemented using asynchronous messaging with the \gls{amqp} provided by the global message broker of the \gls{rnp} platform.
-				Communication between the system and the machine-tool, which should produce the part is managed with the \gls{opcua} protocol as described in \cref{sec:opc_ua}.
+				Communication between the system and the machine-tool, which should produce the part, is managed by the \gls{opcua} protocol as described in \cref{sec:opc_ua}.
+				
 				We refer as the basic workflow of the \gls{poc} as the implementation of the Use-Cases to upload G-Code, request the current machine-tool state, the transfer of G-Code to the machine-tool and the start of the part production, as shown in \cref{tab:use_case_upload,tab:use_case_check_machine,tab:use_case_transfer_code,tab:use_case_production_control}.
 
-				In \cref{fig:poc_workflow_diagram} we describe in the first steps the Use-Case, that the user has G-Code prepared from the \gls{cad} file of the part to be produced. The user sends an \gls{http}-POST request in \gls{json} format to the system, containing his authentication header, the G-Code to be uploaded to the system, the identifier of the machine-tool that should produce the part\footnote{We want to mention, that by sending the identifier of a selected machine-tool to produce specific part, the service checks if the catalog contains multiple machine-tools with the same configuration parameters. If this is the case, one machine-tool that is available at the production time of the part will be selected to produce the part.} and the production time of the part.
+				In \cref{fig:poc_workflow_diagram} we describe the first steps of the process of the Use-Case for G-Code transfer shown in~\cref{tab:use_case_upload}, in which the user has G-Code prepared from the \gls{cad} file of the part to be produced. The user sends an \gls{http}-POST request in \gls{json} format to the system, containing his authentication header, the G-Code to be uploaded to the system, the identifier of the machine-tool that should produce the part\footnote{We want to mention, that by sending the identifier of a selected machine-tool to produce specific part, the service checks if the catalog contains multiple machine-tools with the same configuration parameters. If this is the case, one machine-tool that is available at the production time of the part will be selected to produce the part.} and the production time of the part.
 
-				Receiving the user request, the service checks if the request is valid and if the user has the required permissions to perform the \gls{api} call. If the requirements are not met in the request it will be rejected and the user gets an information in the \gls{api} response. If the request has been sent correctly, the service starts to check the machine-tool catalog and the configurations of the production process.
-
+				Receiving the user request, the service checks if the request is valid and if the user has the required permissions to perform the \gls{api} call. If the requirements are not met in the request it will be rejected and the user gets an information in the \gls{api} response. Assuming that the request has been sent correctly, the service starts to check the machine-tool catalog and the configurations of the production process.
+				
+				If the configuration check and the following persistence of the production part and the machine-tool connection (referring to an \gls{opcua} connection to the \gls{opcua} Server of the machine tool) is successful, the user request is finished with a positive response and the automatic production process starts.
+				
+				By starting the automatic part production, the \gls{poc} checks every second, if the order of the parts to be produced is still consistent with production dates of all valid parts in the database. Is the current system time 30 minutes away from the start of the production, the system begins to transfer the G-Code data of the part to the machine-tool by firstly checking the current machine status (not including that the machine tool can be in production mode) as shown in \cref{tab:use_case_check_machine} and begins to transfer the G-Code data to the machine-tool as described in \cref{tab:use_case_transfer_code}.
+				
+				In the case, that the production paradigms are not met, the part will be rescheduled in the database to a deferred state and the manufacturer user is informed over an asynchronous message. In the other case that, all requirements are met, the production is started at the moment the system times equals the part production time. After the successful production of the part, the user is again informed over an asynchronous message.
+				
 				\begin{figure}[htbp]
 					\centering
 					\includegraphics[width=\textwidth]{part_production_sequence.jpg}
 					\caption{Sequence diagram of the general part production process.}
 					\label{fig:poc_workflow_diagram}
 				\end{figure}
-
-				If the configuration check and the following persistence of the production part and the machine-tool relation is successful, the user request is finished with a positive response and the automatic production process starts.
-				The \gls{poc} checks every second, if the order of the parts to be produced is still consistent with production dates of all valid parts in the database. Is the current system time 30 minutes away from the start of the production, the system begins to transfer the G-Code data of the part to the machine-tool by firstly checking the current machine status (not including that the machine tool can be in production mode) as shown in \cref{tab:use_case_check_machine} and begins to transfer the G-Code data to the machine-tool as described in \cref{tab:use_case_transfer_code}.
-
-				In the case, that the production paradigms are not met, the part will be rescheduled in the database to a deferred state and the manufacturer user is informed over an asynchronous message. In the other case that, all requirements are met, the production is started at the moment the system times equals the part production time. After the successful production of the part, the user is again informed over an asynchronous message.
-
+				
 				By describing the workflow shown in \cref{fig:poc_workflow_diagram} we handled all the requirements and Use-Cases described in \cref{sec:requirements}. Further we have highlighted that with the prior knowledge of the concepts described in \cref{ch:foundations} and the analysis of the system, we are able to model an automatic manufacturing process only relying on Open Source Technologies and the \gls{opcua} specification. In \cref{subsec:machine_tool_intergation} we will describe the machine-tool integration between the \gls{rnp} \gls{opcua} Client Service running in the cloud and the machine-tool itself to finalize the whole manufacturing process model.
+				
+				Nevertheless, we have to mention, that in the scope of this \gls{poc}, the production workflow rely on the provided \gls{opcua} functionalities of the Beckhoff TwinCAT V3\footnote{\url{http://www.beckhoff.de/twincat3/}} \gls{opcua} server provided by the \gls{isw} for this work. We further assume, that the provided functionalities can be triggered as described in~\cite{twincat2018} by only executing the appropriate \gls{opcua} Client \gls{api} calls from the client to the server side. As result, we have to notice, that only under the case, this assumption is correct, the interactions between the \textit{\gls{opcua} Client Service}, \textit{\gls{opcua} Server Service} and the machine-tool \textit{OSACA} actors, can be successfully implemented. Only under these assumptions, we can implement a \gls{poc}, without taking any changes on the machine-tool side and ensure a machine-tool and control unit independent manufacturing approach in our \gls{poc}.
 
 			\subsection{Machine Tool Integration} \label{subsec:machine_tool_intergation}
 
 				In \cref{subsec:workflow_concept} we presented the concept of the regular workflow for the automatic part production of our \gls{poc}. The description of the machine-tool integration side will finalize our model. The machine-tool will be integrated using its \gls{opcua} server.
 
-				To check the machine-tool status, the client will read the current status data from the servers AddressSpace. These variables are set machine-tool specific and have to be determined for each server and machine-tool. For our \gls{poc} we will use the Beckhoff TwinCAT V3\footnote{\url{http://www.beckhoff.de/twincat3/}} control and \gls{opcua} server for demonstration and testing purposes and describe machine-tool specific commands using its specification defined in ~\cite{twincat2018}. The machine-tool for experiment purposes is a 3-axis milling machine provided by the \gls{isw}.
+				To check the machine-tool status, the client will read the current status data from the servers AddressSpace. These variables are set machine-tool specific and have to be determined for each server and machine-tool. For our \gls{poc} we will use the Beckhoff TwinCAT V3\footnote{\url{http://www.beckhoff.de/twincat3/}} control and \gls{opcua} server for demonstration and testing purposes and describe machine-tool specific commands using its specification defined in~\cite{twincat2018}. The machine-tool for experiment purposes is a 3-axis milling machine provided by the \gls{isw}, called \textit{OSACA}.
 
 				The machine-tool status check is handled, using the standard \gls{opcua} client read function to determine, if the current machine state in the TwinCAT NameSpace is not of type \textit{AlarmType} in the \textit{UA\_StatusCode}. If no entry is currently provided for any of these types (described in Clause 8.2 of~\cite{twincat2018}) under the \textit{DeviceState} \gls{opcua} Object, the machine-tool has no error state and it leaves us to check, if the machine-tool is ready for part production or currently producing a part. The check if the machine-tool is currently producing a part, is done by checking, if any motion state changes arrived in the \textit{UA\_NodeGetHandleList} as if the production is ready, the event list is empty. Connectivity analysis of the machine-tool is handled implicitly as every read request of data requires a valid \gls{opcua} connection.
 
-				Transferring a G-Code data file is handled by the \gls{poc} as follows using the provided functionality of the TwinCAT control unit and its \gls{opcua} Server:
+				For read and write operation calls sent by an \gls{opcua} Client to an \gls{opcua} Server, the\gls{opcua} protocol specifies a standard \textit{UA\_FileType}~\cite{opcfoundation2017part5} which should be implemented by the \gls{opcua} server for the specific control used by the machine-tool. The \textit{UA\_FileType} is represented by an array of bytes sent over the \gls{opcua} connection. For the purpose of our \gls{poc}, the data sent during the connection is only encrypted using the \gls{opcua} security mechanisms described in~\cite{opcfoundation2017part1} to avoid encoding and decoding complications at the testing of the \gls{poc}.
+				
+				Transferring of a G-Code data file is therefore handled by the \gls{poc} as follows:
 
 				\begin{enumerate}
 					\item The Client connects to the Server and checks if a program with the file name of the G-Code data already exists.
 					\item If the G-Code already exists, the client appends temporary the system date to the file name and triggers the creation of a new \textit{UA\_FileType} in the programs folder for the project.
 					\item After the empty file is created on the Server side, the client writes a byte stream into the file created using an \textit{UA\_Write} command to the server.
-					\item Finishing the write command, the client triggers the naming of the file and the setting of project specific parameters.
+					\item Finishing the writing command, the client triggers the naming of the file and the setting of project specific parameters.
 				\end{enumerate}
 
 				In the last step of the part production, as we now transferred the G-Code down to the \gls{plc} of the machine-tool using the \gls{opcua} server, we can now start the part production at the required time. Therefore, we trigger the \gls{opcua} server to create a new \textit{Task} in the TwinCAT automation project and execute it using the predefined workflow in \textit{UA\_Method} and \textit{UA\_Function} calls in the \gls{plc}.
