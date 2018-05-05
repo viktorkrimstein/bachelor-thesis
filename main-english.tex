@@ -276,7 +276,7 @@ enddate={May 22, 2018}
 			The \gls{rnp} middleware then can signal to the Customers, that potential manufacturing resources are available from the Producer or even multiple Producers. 
 			In top-down order, \cref{fig:rnp_workflow} shows that Customers can assign production orders to one or multiple Producers, using the Resource Assignment Layer of the \gls{rnp} platform.
 
-			\begin{figure}[htbp]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=\textwidth]{rnp_workflow.jpg}
 				\caption{The workflow of the Rent'n'Produce platform adapted from~\cite{ellwein2016}}
@@ -295,7 +295,7 @@ enddate={May 22, 2018}
 			
 			The persistence layer, shown in \cref{fig:rnp_architecture}, contains the databases (\gls{sql} or \gls{nosql}) for the different services in the overall \gls{soa}. These databases offer their \gls{api}s to the Service Layer, implementing the business logic of the whole \gls{rnp} platform. As presented in \cref{fig:rnp_architecture}, the service layer is encapsulated by the \gls{api} Gateway Component, briding the \gls{api}s of the \gls{rnp} platform to the Web Interface, shown to the end-users of \gls{rnp}.
 
-			\begin{figure}[htbp]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=\textwidth]{rnp_components_simplified.jpg}
 				\caption{Simplified architecture of the Rent'n'Produce platform}
@@ -366,7 +366,7 @@ enddate={May 22, 2018}
 			
 			Finally, the application layer rounds off the \gls{cm} model by being responsible for end-user demand and manufacturing process management mapping~\cite{xu2012cloud}.
 			
-			\begin{figure}[htbp]
+			\begin{figure}[H]
 				\centering
 				\includegraphics[width=\textwidth]{cloud_manufacturing.jpg}
 				\caption{Architecture of a Cloud Manufacturing system adapted from~\cite{xu2012cloud}}
@@ -418,7 +418,7 @@ enddate={May 22, 2018}
 
 				\end{itemize}
 
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{opc_ua_server_model.jpg}
 					\caption{The Open Platform Communications Unified Architecture server architecture adapted from~\cite{opcfoundation2017part1}}
@@ -439,7 +439,7 @@ enddate={May 22, 2018}
 				The \gls{opcua} Communication Stack converts Client \gls{api} calls into Messages and sends them through the underlying communications entity to the Server at the request of the Client application.
 				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
 
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{opc_ua_client_model.jpg}
 					\caption{The Open Platform Communications Unified Architecture client architecture adapted from~\cite{opcfoundation2017part1}}
@@ -448,11 +448,11 @@ enddate={May 22, 2018}
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
-		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the Java~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Eclipse Milo, a Java~\cite{java2015} framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
+		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the \gls{java}~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Eclipse Milo, a \gls{java}~\cite{java2015} framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
 
 		\section{Spring Boot}\label{sec:spring_boot}
 
-			The \gls{soa} of the \gls{rnp} platform was realized using the Java~\cite{java2015} programming language in combination with the Spring Boot Framework\footnote{\url{https://projects.spring.io/spring-boot/}}. The framework provides enterprise ready and production based patterns and functionalities for building backend services in Cloud architectures. Spring Boot provides a common abstraction layer of database entities, repositories abstracting the underlying persistence layer, services implementing the business logic and \gls{rest} controller presenting the business logic as \gls{rest}-ful \gls{api} including the mapping of different data models like \gls{json} or \gls{xml} to Java~\cite{java2015} objects.
+			The \gls{soa} of the \gls{rnp} platform was realized using the \gls{java}~\cite{java2015} programming language in combination with the Spring Boot Framework\footnote{\url{https://projects.spring.io/spring-boot/}}. The framework provides enterprise ready and production based patterns and functionalities for building backend services in Cloud architectures. Spring Boot provides a common abstraction layer of database entities, repositories abstracting the underlying persistence layer, services implementing the business logic and \gls{rest} controller presenting the business logic as \gls{rest}-ful \gls{api} including the mapping of different data models like \gls{json} or \gls{xml} to \gls{java}~\cite{java2015} objects.
 			
 			Besides its clean architectural approach, Spring Boot provides standard enterprise pattern configurations for message broker, service discovery, performance and metrics tracing as well as custom web-server configurations with little to no configuration effort.
 
@@ -475,7 +475,7 @@ enddate={May 22, 2018}
 			The blocks in the first virtual machine described in~\cref{subfig:hypervisor} represents a virtualized computer, containing its own Operating System, binaries containing encapsulated system functionalities to run specific software of the Operating System and the Application as the piece of software to be run in the virtual machine.
 			Analogously, these terms and symbols find their use in~\cref{subfig:docker}.
 			
-			\begin{figure}[htbp]
+			\begin{figure}[H]
 				\centering
 				\begin{subfigure}{0.45\textwidth}
 					\centering
@@ -499,7 +499,7 @@ enddate={May 22, 2018}
 
 		\section{Eclipse Milo}\label{sec:eclipse_milo}
 
-			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the Java~\cite{java2015} programming language. 
+			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the \gls{java}~\cite{java2015} programming language. 
 			It includes a high-performance stack (channels, serialization, data structures, security) as well as client and server libraries built on top of the stack.
 			
 			While this project has existed for some time, it is new to the Eclipse foundation and is therefore considered to be in incubation\footnote{\url{https://projects.eclipse.org/proposals/milo}}.
@@ -516,7 +516,7 @@ enddate={May 22, 2018}
 			These commands identify the particular \gls{crud} operation being requested of the resource identified by the \gls{url} endpoint.
 			\Cref{tab:http_rest_mapping} shows the mapping between \gls{rest} and the \gls{http} protocol.
 			
-			\begin{table}[hbtp]
+			\begin{table}[!h]
 				\centering
 				\caption{Hypertext Transfer Protocol to Representational State Transfer Mapping}
 				\label{tab:http_rest_mapping}
@@ -590,10 +590,6 @@ enddate={May 22, 2018}
 		In this chapter, the evaluation of an appropriate \gls{opcua} framework for the \gls{poc} implementation is provided. \Cref{sec:evaluation_requirements} describes the requirements elaborated that should be met by the framework. 
 		Using the defined requirements, a decision about the framework is made in~\cref{sec:evaluation_decision}.
 		
-		In~\cref{sec:evaluation_decision}, the chosen frameworks will be analyzed against the requirements defined in~\cref{sec:evaluation_requirements}. The results will be presented in~\cref{tab:framework_comparison} using Harvey Balls. 
-		A full Harvey Ball~\harveyBallFull~will show, that a requirement has totally been met.
-		If requirements have not been met in full or not at all, these results are represented by the following Harvey Balls in descending order: \harveyBallThreeQuarter, \harveyBallHalf, \harveyBallQuarter~and \harveyBallNone.
-		
 		\section{Requirements}\label{sec:evaluation_requirements}
 		
 			This section will discuss the elaboration process of requirements and their definition, finally upon which a decision about which \gls{opcua} framework should be used in the \gls{poc} to implemented as part of this work. 
@@ -611,10 +607,10 @@ enddate={May 22, 2018}
 			This should be given because this work aims to implement a machine-tool and \gls{opcua} Server \gls{api} independent \gls{poc}, so the functionalities for the Server \gls{api} are not required for the \gls{poc} and would only overload the \gls{poc}.
 			
 			\paragraph{Programming Language Support} As this work aims to provide a concept for an \gls{poc}, which should be adaptable to different \gls{cm} platforms, the chosen framework should ideally be available for different programming languages. 
-			For the sake of this work, we will focus only on the following programming languages: Java\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/index.html}}, C++\footnote{\url{https://www.iso.org/standard/68564.html}}, C\#\footnote{\url{https://docs.microsoft.com/de-de/dotnet/csharp/}}, Python\footnote{\url{https://docs.python.org/3/}}, NodeJS\footnote{\url{https://nodejs.org/dist/latest-v10.x/docs/api/}} and the GoLang\footnote{\url{https://golang.org/ref/spec}}.
+			For the sake of this work, we will focus only on the following programming languages: \gls{java}\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/index.html}}, \gls{ccpp}\footnote{\url{https://www.iso.org/standard/68564.html}}, \gls{cs}\footnote{\url{https://docs.microsoft.com/de-de/dotnet/csharp/}}, \gls{python}\footnote{\url{https://docs.python.org/3/}}, \gls{nodejs}\footnote{\url{https://nodejs.org/dist/latest-v10.x/docs/api/}} and the \gls{golang}\footnote{\url{https://golang.org/ref/spec}}.
 			These programming languages have been chosen as they are the most common programming languages adopted for backend applications according to~\cite{jain2017evolution}.
 			
-			The Java programming language is further defined mandatory because all backend services of the \gls{rnp} platform are programmed using the Java programming language.
+			The \gls{java} programming language is further defined mandatory because all backend services of the \gls{rnp} platform are programmed using the \gls{java} programming language.
 			This fact is described in detail in~\cref{subsec:services}.
 			
 			\paragraph{Level of Abstraction} The presentation of an abstract concept for the implementation of a proof-of-concept is the overarching goal of this work. 
@@ -627,31 +623,43 @@ enddate={May 22, 2018}
 			
 		\section{Decision}\label{sec:evaluation_decision}
 		
-			Taking the requirements defined in~\cref{sec:evaluation_requirements}, this section analyzes \gls{opcua} frameworks and decides one to be used in the \gls{poc} implementation. The following frameworks have been selected for comparison by the first 32 results of a DuckDuckGo Search\footnote{\url{https://duckduckgo.com/}} result for the search query "\texttt{opc ua framework java}" (this search query was last checked on January 31, 2018):
+			Taking the requirements defined in~\cref{sec:evaluation_requirements}, this section analyzes \gls{opcua} frameworks and decides one to be used in the \gls{poc} implementation. In this section, the chosen frameworks will be analyzed against the requirements defined in~\cref{sec:evaluation_requirements}. The results will be presented in~\cref{tab:framework_comparison} using Harvey Balls. 
+			A full Harvey Ball~\harveyBallFull~will show, that a requirement has totally been met.
+			If requirements have not been met in full or not at all, these results are represented by the following Harvey Balls in descending order: \harveyBallThreeQuarter, \harveyBallHalf, \harveyBallQuarter~and \harveyBallNone.
+			
+			The following frameworks have been selected for comparison by the first 32 results of a DuckDuckGo Search\footnote{\url{https://duckduckgo.com/}} result for the search query "\texttt{opc ua framework java}" (this search query was last checked on January 31, 2018):
 			
 			\begin{enumerate}
 				
-				\item \gls{opc} Foundation UA-Java\footnote{\url{https://github.com/OPCFoundation/UA-Java}} - the example implementation in Java implemented by the \gls{opc} Foundation.
+				\item \gls{opc} Foundation UA-\gls{java}\footnote{\url{https://github.com/OPCFoundation/UA-Java}} - the example implementation in \gls{java} implemented by the \gls{opc} Foundation.
 				
-				\item PLCcom \gls{opcua} SDK\footnote{\url{https://www.plccom.de/produkte/opc/opc-ua-client-sdks.html}} - a commercial Java \gls{sdk} for \gls{opcua} Server and Client implementations supporting C\# as well.
+				\item PLCcom \gls{opcua} SDK\footnote{\url{https://www.plccom.de/produkte/opc/opc-ua-client-sdks.html}} - a commercial \gls{java} \gls{sdk} for \gls{opcua} Server and Client implementations supporting \gls{cs} as well.
 				
-				\item Ascolab UA Java SDK\footnote{\url{http://www.ascolab.com/en/technology-unified-architecture/technology-implementations.html}} - a a commercial Java \gls{sdk} for general \gls{opcua} implementations, supporting C/C++ and C\# as well.
+				\item Ascolab UA \gls{java} SDK\footnote{\url{http://www.ascolab.com/en/technology-unified-architecture/technology-implementations.html}} - a commercial \gls{java} \gls{sdk} for general \gls{opcua} implementations, supporting \gls{ccpp} and \gls{cs} as well.
 				
-				\item opcua4j\footnote{\url{https://code.google.com/archive/p/opcua4j/}} - an Open Source implementation of the \gls{opcua} Server specification in Java.
+				\item opcua4j\footnote{\url{https://code.google.com/archive/p/opcua4j/}} - an Open Source implementation of the \gls{opcua} Server specification in \gls{java}.
 				
-				\item Prosys \gls{opcua} Java SDK\footnote{\url{https://code.google.com/archive/p/opcua4j/}} - a proprietary Java \gls{sdk} for \gls{opcua} compliant \gls{opcua} Server and Client implementations.
+				\item Prosys \gls{opcua} \gls{java} SDK\footnote{\url{https://code.google.com/archive/p/opcua4j/}} - a proprietary \gls{java} \gls{sdk} for \gls{opcua} compliant \gls{opcua} Server and Client implementations.
 				
-				\item Unified Automation UA Java SDK\footnote{\url{https://www.unified-automation.com/products/client-sdk/java-ua-client-sdk.html}} - a proprietary Java \gls{sdk} for \gls{opcua} compliant \gls{opcua} Server and Client implementations, supporting C/C++ and C\# as well.
+				\item Unified Automation UA \gls{java} SDK\footnote{\url{https://www.unified-automation.com/products/client-sdk/java-ua-client-sdk.html}} - a proprietary \gls{java} \gls{sdk} for \gls{opcua} compliant \gls{opcua} Server and Client implementations, supporting \gls{ccpp} and \gls{cs} as well.
 				
-				\item Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} - an Open Source Java library totally compliant to the \gls{opcua} specification separated into \gls{opcua} Client and Server \gls{sdk}s and supported by industrial partners as well as by an active community.
+				\item Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} - an Open Source \gls{java} library totally compliant to the \gls{opcua} specification separated into \gls{opcua} Client and Server \gls{sdk}s and supported by industrial partners as well as by an active community.
 				
 			\end{enumerate}
 			
-			Text
+			After the frameworks were found, each of them was checked against the requirements defined in~\cref{sec:evaluation_requirements}. The results of the evaluation are presented in~\cref{tab:framework_comparison}. In the License column, only an empty or a full Harvey Ball could be given, as the requirement is, whether the framework is Open Source or not.
+			
+			Regarding the compliance to the specification a half Harvey Ball was given, if the framework implements only one of the both \gls{opcua} \gls{api}s; either the Server \gls{api} or the Client \gls{api}.
+			In the column representing the results for the Separation of Concerns requirements, the results were notated with an empty Harvey Ball if the \gls{sdk} has been implemented in a monolith architecture containing both, Server and Client \gls{opcua} \gls{api}s. If the \gls{api}s have been separated into two or more different \gls{sdk}s, a full Harvey Ball was given as the requirement was totally met.
+			
+			Results for the support of different programming languages were annotated with a quarter Harvery Ball if the framework is only implemented for the \gls{java} programming language and for each further supported programming language the Harvey Ball was filled a quarter step fuller.
+			The decision concerning the level of abstraction away from the basic \gls{opcua} \gls{api}, was tested by the way, how a test client implemented with the framework, can be connected to a \gls{opcua} Server. Method and function calls of the native \gls{opcua} Client \gls{api} have been annotated with a quarter Harvey Ball and a full Harvey Ball was given if the framework abstracts the \gls{opcua} functionalities by providing dedicated methods for each operation and abstracting the underlying protocol and handling.
+			
+			Finally, for the support of the development community and the industrial support for the framework development, a quarter Harvey Ball was given if the framework is only implemented by the company or the community reaction time is about two weeks (as seen for a not handled issue by the opcua4j framework for about 2 months). Further, a half Harvey Ball was given for an active industrial development of the framework, followed by an additionally active but not responsive open developer community and concluding to a full Harvey Ball if the framework is developed by an active Open Source community and the development is actively supported by the industry. 
 			
 			In~\cref{tab:framework_comparison} the requirements defined in~\cref{sec:evaluation_requirements} are abbreviated as follows: Licensing with \textit{Lic}, Specification Compliance with \textit{SC}, Separation of Concerns with \textit{SoC}, Programming Language Support with \textit{PLS}, Level of Abstraction with \textit{LoA} and Industrial and Community Support with \textit{ICS}.
 			
-			\begin{table}[hbtp]
+			\begin{table}[!h]
 				\centering
 				\caption{Comparison of Open Platform Communications Unified Architecture Frameworks}
 				\label{tab:framework_comparison}
@@ -659,28 +667,30 @@ enddate={May 22, 2018}
 					\toprule
 					Framework & Lic & SC & SoC & PLS & LoA & ICS
 					\\ \midrule
-					\gls{opc} Foundation UA-Java & \harveyBallFull & \harveyBallFull & \harveyBallNone & \harveyBallQuarter & \harveyBallQuarter & \harveyBallFull
+					\gls{opc} Foundation UA-\gls{java} & \harveyBallFull & \harveyBallFull & \harveyBallNone & \harveyBallQuarter & \harveyBallQuarter & \harveyBallFull
 					\\ \midrule
 					PLCcom \gls{opcua} SDK & \harveyBallNone & \harveyBallFull & \harveyBallFull & \harveyBallHalf & \harveyBallFull & \harveyBallFull
 					\\ \midrule
-					Ascolab UA Java SDK & \harveyBallNone & \harveyBallFull & \harveyBallNone & \harveyBallThreeQuarter & \harveyBallThreeQuarter & \harveyBallHalf
+					Ascolab UA \gls{java} SDK & \harveyBallNone & \harveyBallFull & \harveyBallNone & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallHalf
 					\\ \midrule
-					opcua4j & \harveyBallFull & \harveyBallHalf & \harveyBallNone & \harveyBallQuarter & \harveyBallFull & \harveyBallQuarter
+					opcua4j & \harveyBallFull & \harveyBallHalf & \harveyBallNone & \harveyBallQuarter & \harveyBallQuarter & \harveyBallQuarter
 					\\ \midrule
-					Prosys \gls{opcua} Java SDK & \harveyBallNone & \harveyBallFull & \harveyBallFull & \harveyBallQuarter & \harveyBallFull & \harveyBallHalf
+					Prosys \gls{opcua} \gls{java} SDK & \harveyBallNone & \harveyBallFull & \harveyBallFull & \harveyBallQuarter & \harveyBallFull & \harveyBallHalf
 					\\ \midrule
-					Unified Automation UA Java SDK & \harveyBallNone & \harveyBallFull & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallHalf
+					Unified Automation UA \gls{java} SDK & \harveyBallNone & \harveyBallFull & \harveyBallFull & \harveyBallThreeQuarter & \harveyBallFull & \harveyBallHalf
 					\\ \midrule
 					Eclipse Milo & \harveyBallFull & \harveyBallFull & \harveyBallFull & \harveyBallQuarter & \harveyBallFull & \harveyBallFull
 					\\ \bottomrule
 				\end{tabular}
 			\end{table}
 		
-			Text
+			After filtering~\cref{tab:framework_comparison} for the requirement, that the framework must be Open Source, only the \gls{opc} Foundation, the Eclipse Milo framework and opcua4j were left. As opcua4j only implements the \gls{opcua} Server \gls{api}, just the first both passed the second column of the requirements table. As the example implementation of the \gls{opc} Foundation only relies on native \gls{opcua} \gls{api} calls, the Eclipse Milo framework has been chosen as it provides a higher layer of abstraction making the \gls{poc} developed with it more understandable and maintainable.
 			
 		\section*{Conclusion}\label{sec:evaluation_conclusion}
 		
-			Text
+			In this chapter requirements for the decision process of an \gls{opcua} framework to be used for the implementation of the \gls{poc} in this work, have been defined. 
+			These requirements have been checked against beforehand researched \gls{opcua} frameworks and results haven been presented in~\cref{tab:framework_comparison} using Havey Balls.
+			The decision to utilize the Eclipse Milo Open Source framework for the \gls{poc} implementation has been made, since the framework implements the full \gls{opcua} Server and Client \gls{api} specifications and is actively supported by industrial partners.
 
 	\chapter{Concept} \label{ch:concept}
 
@@ -722,7 +732,7 @@ enddate={May 22, 2018}
 				Therefore, a possibility is required to transfer \gls{gcode} data to the platform and from the platform down to the machine tools already provisioned.
 				Finally, the possibility to trigger the start or the stop of a part production manually or automatically by the main production process is as well wanted. \Cref{fig:use_cases} lists the emerged Use Cases and shows their relation to each other following the \gls{uml} syntax and semantic described in~\cite{uml2017}.
 
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{use-cases.jpg}
 					\caption{The Use Case diagram for the Proof-of-Concept}
@@ -734,12 +744,12 @@ enddate={May 22, 2018}
 				The descriptions include only the regular process flow, as the side effects are described in more detail in the specification, created during this research work. This work will highlight, that the definition of the Use Cases to start and stop the tool production have been united into the Use Case of the general part production as the steps are identically and only change in the control signal sent to the machine tool. Further, the exception and error handling of these both Use Cases is exactly the same, as in the general part production.
 				
 				To start the manufacturing process of the production of a specific part, \gls{gcode} generated through a \gls{cad}-\gls{cam} chain by the user has to be uploaded to the Machine Client Service. \Cref{tab:use_case_upload} shows the Use Case description for this vendor task. The Upload is initiated through an \gls{http}-POST \gls{api} call to the service, which then persists the \gls{gcode} and the machine tool configurations to its database, returning a success message in form of an \gls{http} 200 OK response to the vendor or services in general, calling the service \gls{api}.
-				After \gls{gcode} has successfully been uploaded to the platform, \cref{tab:use_case_check_machine} describes the check of the machine tool status for further manufacturing processes. The check is described more abstract, as every supported call \gls{opcua} \gls{api} could be transmitted down to the machine.
+				After \gls{gcode} has successfully been uploaded to the platform, \cref{tab:use_case_check_machine} describes the check of the machine tool status for further manufacturing processes. The check is described more abstract, as every supported call \gls{opcua} \gls{api} could be transmitted down to the machine. 
 				
 				By positive response on the machine tool status, the \gls{poc} can now proceed with the transfer of \gls{gcode} down to a connected machine tool for following part production. The transfer described in~\cref{tab:use_case_transfer_code} shows the specific roles and actors in the transfer. The \gls{gcode} is transferred to the machine tool, by opening a \textit{UA\_FileType} on the machine tools \gls{opcua} Server, writing the persisted \gls{gcode} on the client-side to the opened file and closing the writing process by linking the new \textit{UA\_Object} respectively with its surrounding \textit{AddressSpace}.
 				Finally, when all prerequisites are met (the machine tool status was checked and the machine tool is available, \gls{gcode} has been persisted to the platform and transferred down to the machine tool), the \gls{poc} can start the (or stop an already running) part production as presented in~\cref{tab:use_case_production_control}. Here, the preconditions need to be met are summarized, as well as the way, how \gls{gcode} production has to be started on the machine tool.
 				
-				\begin{table}[hbtp]
+				\begin{table}[htbp]
 					\centering
 					\caption{Use Case description for the upload of production data}
 					\label{tab:use_case_upload}
@@ -778,8 +788,8 @@ enddate={May 22, 2018}
 						\\ \bottomrule
 					\end{tabular}
 				\end{table}
-
-				\begin{table}[hbtp]
+			
+				\begin{table}[htbp]
 					\centering
 					\caption{Use Case description for the retrieval of the current machine tool status}
 					\label{tab:use_case_check_machine}
@@ -821,7 +831,7 @@ enddate={May 22, 2018}
 					\end{tabular}
 				\end{table}
 
-				\begin{table}[hbtp]
+				\begin{table}[htbp]
 					\centering
 					\caption{Use Case description for transfer of production data to the machine tool}
 					\label{tab:use_case_transfer_code}
@@ -863,7 +873,9 @@ enddate={May 22, 2018}
 					\end{tabular}
 				\end{table}
 
-				\begin{table}[hbtp]
+	\newpage
+
+				\begin{table}[htbp]
 					\centering
 					\caption{Use Case description for the production control of the machine tool}
 					\label{tab:use_case_production_control}
@@ -898,6 +910,8 @@ enddate={May 22, 2018}
 						\\ \bottomrule
 					\end{tabular}
 				\end{table}
+			
+	\newpage
 
 			\subsection{Optional Use Cases} \label{subsec:optional}
 
@@ -932,7 +946,7 @@ enddate={May 22, 2018}
 				The \gls{opcua} Service encapsulates the \gls{opcua} functionalities into a single component, offering its \gls{api} to interested \gls{rnp} services. 
 				The machine tool is bound to the Cloud platform only by its \gls{opcua} Server.
 
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{poc_integration_diagram.jpg}
 					\caption{The component diagram of the integration of the Proof-of-Concept}
@@ -952,9 +966,9 @@ enddate={May 22, 2018}
 
 				After describing the high level integration process, the services and \gls{api}s provided by the \gls{poc} will be highlighted in this section. \cref{fig:poc_service_diagram} shows out of which services and what kind of services, the \gls{poc} will be implemented. The contenct presented in~\cref{fig:poc_service_diagram} is described using a \gls{uml} Component Diagram following~\cite{uml2017}.
 				
-				Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot JPA\footnote{\url{https://spring.io/guides/gs/accessing-data-jpa/}} interface of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to Java~\cite{java2015} Entities.
+				Each part of the functionality will be bound into a four tier composite -- the Entity representation of the domain specific objects to be persisted to the database, a Repository layer making database queries available using the Spring Boot \gls{jpa} of the Entity, a Service layer implementing the business logic of the specific functionality and finally a Spring Boot \gls{rest} Controller wrapping the Service layer functionality into a \gls{rest}-ful \gls{api} also handling the mapping of \gls{json} objects to \gls{java}~\cite{java2015} Entities.
 
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{poc_services.jpg}
 					\caption{The component diagram describing service details of the Proof-of-Concept}
@@ -1004,7 +1018,7 @@ enddate={May 22, 2018}
 				
 				In the case, that the production paradigms are not met, the part will be rescheduled in the database to a deferred state and the manufacturer user is informed over an asynchronous message. In the other case that, all requirements are met, the production is started at the moment the system times equals the part production time. After the successful production of the part, the user is again informed over an asynchronous message.
 				
-				\begin{figure}[htbp]
+				\begin{figure}[H]
 					\centering
 					\includegraphics[width=\textwidth]{part_production_sequence.jpg}
 					\caption{Sequence diagram of the general part production process}
@@ -1073,7 +1087,7 @@ enddate={May 22, 2018}
 			The functionality of the \gls{poc} had to be tested with a productive manufacturing unit provided by the \gls{isw} for this work.
 			The motivation of this work was to transfer production part descriptions in \gls{gcode} format down to the machine tool and start the part production, only relying on the \gls{opcua} protocol.
 			
-			Since the \gls{rnp} platform has been developed by using the concepts and technologies described in~\cref{subsec:architecture}, the approach for the integration has been the same way, as presented in~\cref{sec:approach}. This resulted in the usage of technologies and concepts described in~\cref{ch:state_of_the_art}. As a result, a Spring Boot Service was implemented using the Java programming language, virtualized and encapsulated into a Docker container and integrated into the \gls{soa} architecture providing its functionalities by a \gls{rest}-ful \gls{api}. Further, \gls{opcua} related functionalities and abstractions have been realized using the Eclipse Milo Java Framework. 
+			Since the \gls{rnp} platform has been developed by using the concepts and technologies described in~\cref{subsec:architecture}, the approach for the integration has been the same way, as presented in~\cref{sec:approach}. This resulted in the usage of technologies and concepts described in~\cref{ch:state_of_the_art}. As a result, a Spring Boot Service was implemented using the \gls{java} programming language, virtualized and encapsulated into a Docker container and integrated into the \gls{soa} architecture providing its functionalities by a \gls{rest}-ful \gls{api}. Further, \gls{opcua} related functionalities and abstractions have been realized using the Eclipse Milo \gls{java} Framework. 
 			On the basis of the developed requirements and set goals, the \gls{poc} had to be substantiated with a concept, which is shown in~\cref{ch:concept}.
 		
 		\section{Approach}\label{sec:discussion_approach}
