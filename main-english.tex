@@ -445,6 +445,10 @@ enddate={May 22, 2018}
 					\caption{The Open Platform Communications Unified Architecture client architecture adapted from~\cite{opcfoundation2017part1}}
 					\label{fig:opc_ua_client_model}
 				\end{figure}
+			
+		\section*{Conclusion}\label{sec:foundations_conclusion}
+		
+			Text
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
@@ -534,6 +538,10 @@ enddate={May 22, 2018}
 					\\ \bottomrule
 				\end{tabular}
 			\end{table}
+		
+		\section*{Conclusion}\label{sec:state_of_the_art_conclusion}
+		
+			Text
 
 	\chapter{State of Research} \label{ch:state_of_the_Science}
 
@@ -584,6 +592,10 @@ enddate={May 22, 2018}
 			As described in~\cref{sec:opc_ua}, \gls{opcua} serves an abstraction layer for \gls{m2m} communication. Using \gls{opcua}, attempts have been taken to implement a \gls{soa} middleware for control engineering from the Cloud~\cite{melik2012towards}.
 			However, these several attempts for implementing \gls{soa}-based Automation Systems have been implemented successfully, but always with non-industrial, non-standard software like Devices Profile for Web Services~\cite{melik2012towards}.
 			Of great interest for research is the connection and integration of production sites via \gls{opcua}, which does not require a manufacturer-specific solution~\cite{melik2012towards}. These integrations should follow the \gls{opcua} model principles and rely on the specified standard implementation, ensuring a seamless integration of different manufacturing tools and units into a \gls{soa} middleware solution~\cite{imtiaz2013scalability}.
+			
+		\section*{Conclusion}\label{sec:state_of_the_research_conclusion}
+		
+			Text
 			
 	\chapter{Evaluation}\label{ch:evaluation}
 	
@@ -1071,6 +1083,10 @@ enddate={May 22, 2018}
 				User access and permissions to access the \gls{api} is regulated by the Oauth2 protocol to handle user access sessions to the system. Only users with the appropriate access tokens can send requests to each service of the \gls{rnp} platform, including the \gls{poc}. Besides that, only the manufacturers identified by their tokens, can see the machine tools they own and trigger the data transfer to them, which builds an additional security layer.
 
 				Finally, the access on machine tool level is secured using the \gls{opcua} security mechanisms. Each \gls{opcua} server of each machine tool has a fine granulated access and method call description secured using identity certificates. The \gls{poc} initializes the certificate negotiation at the first time, the machine tool is bound to the cloud platform. The service itself can only add \gls{gcode} files to the machine tool \gls{plc} but can't remove data from or interrupt native \gls{plc} implementations.
+				
+		\section*{Conclusion}\label{sec:concept_conclusion}
+		
+			Text
 
 	\chapter{Discussion} \label{ch:discusion}
 
@@ -1176,6 +1192,10 @@ enddate={May 22, 2018}
 			Further limitations have been found during the research phase of the project. Dependent on the real-time requirements of the system, it could be possible, that the \gls{poc} doesn't fit these requirements as a data, signal and file transfer to the control units can take a while, missing the required real-time signal slots. 
 			Further, the \gls{poc} totally depends on a prior knowledge of the \gls{opcua} addresses and security configurations from the manufacturer as that these have to be provided during the persistence of machine tools to the \gls{rnp} platform. 
 			Finally, an automatic provisioning of the machine tools by their \gls{opcua} addresses is still not possible, as the types, versions and software states of the manufacturers \gls{plc}s can be highly heterogeneous, making it impossible for the \gls{poc} to know which kind of services the \gls{plc} really supports, making the need of a kind of gateway inevitable.
+			
+		\section*{Conclusion}\label{sec:discussion_conclusion}
+		
+			Text
 
 	\chapter{Conclusion and Future Work} \label{ch:conclusion_and_future_work}
 
