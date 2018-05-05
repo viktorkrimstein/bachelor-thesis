@@ -314,9 +314,9 @@ enddate={May 22, 2018}
 			By the \gls{nist} definition of Cloud Computing, Cloud Computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction~\cite{mell2011nist}.
 			This cloud model is composed of five essential characteristics, three service models, and four deployment
 			models~\cite{fehling2014cloud}. 
-			With regard to this work, the following paragraphs will focus and describe the three service models, often adapted in the manufacturing environment.
+			With regard to this work, the following paragraphs will focus and describe the three service models, often adapted in the manufacturing environment: \gls{saas}, \gls{paas} and \gls{iaas}.
 
-			\paragraph{\gls{saas}} The capability provided to the consumer is to use the provider's applications running on a Cloud infrastructure~\cite{mell2011nist}.
+			\paragraph{Software as a Service} The capability provided to the consumer is to use the provider's applications running on a Cloud infrastructure~\cite{mell2011nist}.
 			A Cloud infrastructure is the collection of hardware and software that enables the five essential characteristics of Cloud Computing~\cite{mell2011nist}. 
 			The Cloud infrastructure can be viewed as containing both a physical layer and an abstraction layer~\cite{fehling2014cloud}. 
 			The physical layer consists of the hardware resources that are necessary to support the Cloud services being provided, and typically includes server, storage and network components~\cite{fehling2014cloud}.
@@ -326,12 +326,12 @@ enddate={May 22, 2018}
 			The applications are accessible from various client devices through either a thin client interface, such as a web browser (e.g., web-based email), or a program interface~\cite{mell2011nist}.
 			The consumer does not manage or control the underlying Cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited userspecific application configuration settings~\cite{mell2011nist}.
 
-			\paragraph{\gls{paas}} The capability provided to the consumer is to deploy onto the Cloud infrastructure consumer-created or acquired applications created using programming languages, libraries, services, and tools supported by the provider~\cite{fehling2014cloud}.
+			\paragraph{Platform as a Service} The capability provided to the consumer is to deploy onto the Cloud infrastructure consumer-created or acquired applications created using programming languages, libraries, services, and tools supported by the provider~\cite{fehling2014cloud}.
 			This capability does not necessarily preclude the use of compatible programming languages, libraries, services, and tools from other sources~\cite{leymann2011cloud}.
 			
 			The consumer does not manage or control the underlying Cloud infrastructure including network, servers, operating systems, or storage, but has control over the deployed applications and possibly configuration settings for the application-hosting environment~\cite{leymann2011cloud}.
 
-			\paragraph{\gls{iaas}} The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications~\cite{leymann2011cloud}. 
+			\paragraph{Infrastructure as a Service} The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications~\cite{leymann2011cloud}. 
 			The consumer does not manage or control the underlying Cloud infrastructure but has control over operating systems, storage, and deployed applications; and possibly limited control of select networking components (e.g., host firewalls)~\cite{mell2011nist}.
 
 			As shown in \cref{sec:rent_n_produce}, the \gls{rnp} Cloud platform is built upon a \gls{iaas} layer providing its functionality over the \gls{paas} and \gls{saas} models~\cite{xen.17b}. 
@@ -452,7 +452,7 @@ enddate={May 22, 2018}
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
-		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the \gls{java}~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Eclipse Milo, a \gls{java}~\cite{java2015} framework for \gls{opcua} is described in \cref{sec:eclipse_milo}. The \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
+		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the \gls{java}~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Finally, the \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
 
 		\section{Spring Boot}\label{sec:spring_boot}
 
@@ -500,15 +500,6 @@ enddate={May 22, 2018}
 			
 			While standard virtualization builds each operating system itself, container rely only on the presence of the Docker Engine, encapsulating services in minimal environments.
 			Docker Compose\footnote{https://docs.docker.com/compose/} is a tool for defining and running multi-container Docker applications. It offers configuration, management and orchestration utilities for container based or hybrid architectures. Further, Docker Compose can be used to deploy Docker containers and its services to different hosting environments by guaranteeing the same deployment and service architecture on each of the different environments.
-
-		\section{Eclipse Milo}\label{sec:eclipse_milo}
-
-			Eclipse Milo\footnote{\url{https://github.com/eclipse/milo}} is an open-source implementation of the \gls{opcua} specification written in the \gls{java}~\cite{java2015} programming language. 
-			It includes a high-performance stack (channels, serialization, data structures, security) as well as client and server libraries built on top of the stack.
-			
-			While this project has existed for some time, it is new to the Eclipse foundation and is therefore considered to be in incubation\footnote{\url{https://projects.eclipse.org/proposals/milo}}.
-			
-			For the implementation part of this work, this library will be used as the research part of this work has shown, that Eclipse Milo implements the full \gls{opcua} specification providing simple abstraction layers to ease a simple interaction with the machine tools and its' \gls{plc}s.
 
 		\section{Representional State Transfer}\label{sec:rest}
 
