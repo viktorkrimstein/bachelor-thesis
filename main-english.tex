@@ -448,7 +448,8 @@ enddate={May 22, 2018}
 			
 		\section*{Conclusion}\label{sec:foundations_conclusion}
 		
-			Text
+			This section provided a brief introduction to the \gls{rnp} research project platform as well as to further related fields of this work.
+			\gls{rnp} was presented as vendor independent \gls{cm} platform, which currently lacks the functionalities to bind and control machine tools from the Cloud. General Cloud Computing concepts as \gls{saas} have been highlighted in parallel to their relations and influence to the \gls{cm} field. Respectively to the \gls{cm} and manufacturing and control scopes in general, \gls{opcua} protocol, emerging in Europe has been presented as well. Possibilities, which come with \gls{opcua} and their relation to this thesis, which aims to evaluate and provide a \gls{poc} for production data transfer to machine tools from the cloud and being machine tool and control independent at the same time, have been presented as well.
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
@@ -610,7 +611,7 @@ enddate={May 22, 2018}
 			This should be given because this work aims to implement a machine-tool and \gls{opcua} Server \gls{api} independent \gls{poc}, so the functionalities for the Server \gls{api} are not required for the \gls{poc} and would only overload the \gls{poc}.
 			
 			\paragraph{Programming Language Support} As this work aims to provide a concept for an \gls{poc}, which should be adaptable to different \gls{cm} platforms, the chosen framework should ideally be available for different programming languages. 
-			For the sake of this work, we will focus only on the following programming languages: \gls{java}\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/index.html}}, \gls{ccpp}\footnote{\url{https://www.iso.org/standard/68564.html}}, \gls{cs}\footnote{\url{https://docs.microsoft.com/de-de/dotnet/csharp/}}, \gls{python}\footnote{\url{https://docs.python.org/3/}}, \gls{nodejs}\footnote{\url{https://nodejs.org/dist/latest-v10.x/docs/api/}} and the \gls{golang}\footnote{\url{https://golang.org/ref/spec}}.
+			For the sake of this work, the focus will be set only on the following programming languages: \gls{java}\footnote{\url{https://docs.oracle.com/javase/specs/jls/se8/html/index.html}}, \gls{ccpp}\footnote{\url{https://www.iso.org/standard/68564.html}}, \gls{cs}\footnote{\url{https://docs.microsoft.com/de-de/dotnet/csharp/}}, \gls{python}\footnote{\url{https://docs.python.org/3/}}, \gls{nodejs}\footnote{\url{https://nodejs.org/dist/latest-v10.x/docs/api/}} and the \gls{golang}\footnote{\url{https://golang.org/ref/spec}}.
 			These programming languages have been chosen as they are the most common programming languages adopted for backend applications according to~\cite{jain2017evolution}.
 			
 			The \gls{java} programming language is further defined mandatory because all backend services of the \gls{rnp} platform are programmed using the \gls{java} programming language.
@@ -1122,7 +1123,7 @@ enddate={May 22, 2018}
 
 			After defining the Use Cases in \cref{subsec:mandatory}, this work will prove each of them against the actual implementation of the \gls{poc}. This will serve as a proof for the concept and unveil limitations of the concept presented in~\cref{ch:concept}.
 
-			\subsection{Uploading of \gls{gcode}}\label{subsec:uploading_g_code}
+			\subsection{Uploading of Production Data}\label{subsec:uploading_g_code}
 
 				By offering the \gls{api} to upload simple files in the \gls{gcode} file format, this Use Case is proofed by the \gls{poc}. Files can be uploaded and before persisting the files for a specific production step, the system checks, if the header parameters for the file type and the file content itself is \gls{gcode} compliant. Requests with any other type of data will be rejected. Exception handling was implemented to handle unauthorized requests, wrong request contents and unspecified parameters as well as requests to \gls{api} entry points not containing the requested data.
 				It should be concluded, that the \gls{poc} implements the Use Case as described in~\cref{tab:use_case_upload}.
@@ -1141,7 +1142,7 @@ enddate={May 22, 2018}
 
 				As the last parameter is machine tool specific and relies on the \gls{opcua} server implementation on the machine tool; in the scope of this \gls{poc} only the functionalities provided by the TwinCAT V3 control unit used in this work and specified in~\cite{twincat2018} are referenced. More details on this machine tool specific approach will be discussed in \cref{sec:limitations}. Nevertheless, the \gls{poc} provides the \gls{api} as described in the Use Case shown in~\cref{tab:use_case_check_machine}, which leads us to the conclusion, that the \gls{poc} provides the functionality required. This statement is argued by the evidence, that the \gls{poc} implements this functionality in total accordance to the \gls{opcua} Client \gls{api} and the \gls{opcua} Server \gls{api} of the TwinCAT V3 specified in~\cite{twincat2018}, as described in~\cref{subsec:machine_tool_intergation}.
 
-			\subsection{\gls{gcode} Transfer}\label{subsec:g_code_transfer}
+			\subsection{Production Data Transfer}\label{subsec:g_code_transfer}
 
 				With the possibilities implemented in the \gls{poc}, as described in \cref{subsec:machine_tool_status_checking}, the machine tool status can be checked, before a previously uploaded \gls{gcode} file can be transferred to the machine tool to produce the part. The approach described in \cref{subsec:machine_tool_intergation} is the standard process to complete a file transfer following the \gls{opcua} specification respectively to the TwinVAT V3 specification~\cite{twincat2018} used as control unit for the \gls{poc}.
 
