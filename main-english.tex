@@ -355,7 +355,7 @@ enddate={May 22, 2018}
 			The architecture of a \gls{cm} platform shown in \cref{fig:cloud_manufacturing} in a \gls{uml}-like Interaction Diagram following~\cite{uml2017} is constructed by the following four tiers and three domains: the manufacturing resource layer, virtual service layer, global service layer and the application layer~\cite{wu2013cloud}.
 			The product life cycle of manufacturing, including machine tools, gateways and administration tools, is represented by the provider domain and offered by the manufacturing resource layer.
 			Resources can either be any kind of \gls{cps} as well as generalized and abstracted manufacturing capabilities~\cite{kleinemeier2014automatisierungspyramide}.
-			Manufacturing resources include for instance equipment, servers or \gls{plc} units~\cite{xu2012cloud}.
+			Manufacturing resources include for instance equipment, servers or \gls{plc} units~\cite{brettel2014virtualization}.
 			
 			Abstract manufacturing capabilities describe the ability of producers and manufacturer to offer the possibility for executing specialized, non typical tasks including the associated design, planning and management processes culminating in production site specific hardware and administration tools~\cite{he2015state}.
 			The virtual service layer concludes the provider domain by abstracting the underlying manufacturing resource layer and acting as an interface for the global service layer~\cite{xu2012cloud}.
@@ -546,58 +546,71 @@ enddate={May 22, 2018}
 
 	\chapter{State of Research} \label{ch:state_of_the_Science}
 
-		This chapter highlights related research and work respective to this thesis. \Cref{sec:state_of_science_cloud_manufacturing} summarizes the current state of \gls{cm}. In \cref{sec:control_engineering_in_the_cloud} a brief overview is given over the state of Control Engineering from the cloud. This chapter is closed by providing information about the current research state on \gls{m2m} communication protocols in~\cref{sec:machine_to_machine_communication}.
+		This chapter highlights related research and work respective to this thesis. \Cref{sec:state_of_science_cloud_manufacturing} summarizes the current state of \gls{cm}. In \cref{sec:control_engineering_in_the_cloud} a brief overview is given over the state of research in Control Engineering from the cloud. This chapter is closed by providing information about the current research state on \gls{m2m} communication protocols in~\cref{sec:machine_to_machine_communication}.
 
 		\section{State of Research in Cloud Manufacturing}\label{sec:state_of_science_cloud_manufacturing}
 
-			As a new IT paradigm, Cloud Computing is being increasingly adopted to transform the way that \gls{it} resources are utilised and consumed~\cite{li2010cloud,ren2017cloud}. 
-			Consequently, the manufacturing industry is exploring Cloud Computing in order to improve existing manufacturing structures and enterprise systems, to share and provide on-demand networked manufacturing services~\cite{ren2017cloud}, and to better satisfy specific manufacturing enterprise needs~\cite{he2015state}.
+			As a new IT paradigm, Cloud Computing is being increasingly adopted to transform the way that \gls{it} resources are utilized and consumed~\cite{ren2017cloud}. 
+			Consequently, the manufacturing industry is exploring Cloud Computing in order to improve existing manufacturing structures and enterprise systems, to share and provide on-demand networked manufacturing services~\cite{ren2017cloud}, and to better satisfy specific manufacturing enterprise needs~\cite{adamson2017cloud}.
 			So far researchers have proposed a number of new techniques and approaches to encapsulate various virtualized manufacturing resources and capabilities as Cloud-Based services and to implement enterprise \gls{cm} service frameworks and platforms~\cite{tao2017sdmsim}.
 			
-			But as the use of these new paradigms gets more and more common, challenges for \gls{cm} service models and production sites arise~\cite{brettel2014virtualization}.
-			Networked manufacturing for example, lacks strong management mechanisms and efficient tools to coordinate large-scale distributed resources, services and operations~\cite{lin2017multi,xu2012cloud}.
+			But as the use of these new paradigms gets more and more common, challenges for \gls{cm} service models and production sites arise~\cite{zhou2018diverse}.
+			Networked manufacturing for example, lacks strong management mechanisms and efficient tools to coordinate large-scale distributed resources, services and operations~\cite{lin2017multi}.
 			
-			Further, reasearchers aim to decentralize the management of manufacturing resources in the cloud by providing management models to control and administrate manufacturing units through the cloud~\cite{tao2017sdmsim}. Tackling theese challenges ~\cite{lin2017multi} proposes a multi-centric management approach for automized manufacturing unit allocation to which, the results of this work could be bind seamlessly.
+			Further, researchers aim to decentralize the management of manufacturing resources in the cloud by providing management models to control and administrate manufacturing units through the cloud~\cite{tao2017sdmsim}. 
+			Tackling these challenges ~\cite{lin2017multi} proposes a multi-centric management approach for automated manufacturing unit allocation to which, the results of this work could be bind seamlessly~\cite{adamson2017cloud}.
 			
-			Besides the lack of management and control mechanisms in \gls{cm} multivendor systems and heterogeneous infrastructure on production sites pose additional challenges on the \gls{cm} research field~\cite{tuna2017survey, weyer2015towards}.
+			Besides the lack of management and control mechanisms in \gls{cm} multivendor systems and heterogeneous infrastructure on production sites pose additional challenges on the \gls{cm} research field~\cite{tuna2017survey}.
 			The specification of standard communication protocols and data models gains a fast growing role in the automation~\cite{ren2017cloud} and \gls{cm} field~\cite{wollschlaeger2017future}.
 			
-			Additionally, security gets more and more relevance in \gls{cm} field.
+			Additionally, security gets more and more relevance in \gls{cm} field~\cite{tuna2017survey}.
 			In a traditional on-premise application deployment model, the sensitive data of each enterprise continues to reside within the enterprise boundary and is subject to its physical, logical and personnel security and access control policies~\cite{jeschke2017industrial}. 
-			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{subashini2011survey,tao2011cloud}.
+			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{adamson2017cloud}.
 			Consequently, the \gls{saas} vendor must adopt additional security checks to ensure data security and prevent breaches due to security vulnerabilities in the application or through malicious employees~\cite{chen2017machine}.
 
 		\section{Control Engineering in the Cloud}\label{sec:control_engineering_in_the_cloud}
 
-			As mentioned in~\cref{sec:state_of_science_cloud_manufacturing}, that with the emerging of Cloud Computing patterns in the manufacturing field, control engineers as well try to move their field of automation to the Cloud.
-			As discussed in~\cite{jazdi2014cyber}, an approach that implements the concept of \gls{plc} in a \gls{xaas} manner was provided by their work. 
-			The result presented in ~\cite{jazdi2014cyber} is a \gls{cps} including control over \gls{plc}s, implementing concepts of Cloud Computing and provided using the Cloud Computing service models. 
-			Not taking performance and real-time computing requirements into account, this paper shows that a shift to the Cloud in the automation field can be realized.
+			As mentioned in~\cref{sec:state_of_science_cloud_manufacturing}, that with the emerging of Cloud Computing patterns in the manufacturing field, control engineers as well try to move their field of automation to the Cloud~\cite{schlechtendahl2017extended}.
+			As discussed in~\cite{haridas2018cloud}, an approach that implements the concept of \gls{plc} in a \gls{xaas} manner was provided by their work. 
+			The result presented in~\cite{haridas2018cloud} is a \gls{cps} including control over \gls{plc}s, implementing concepts of Cloud Computing and provided using the Cloud Computing service models.
+			Following the security principles presented in~\cite{tanaka2017directed}, the communication of \gls{cps} connected to the provided control platform in~\cite{haridas2018cloud} have been secured through a \gls{vpn} tunnel providing the public cloud \gls{paas} functionalities as described in~\cref{sec:cloud_computing,sec:cloud_manufacturing}.
+			Not taking performance and real-time computing requirements into account, this paper shows that a shift to the Cloud in the automation field can be realized~\cite{haridas2018cloud}.
 			
-			Another research project which has automation and control using \gls{plc}s as a focus is the project piCASSO currently researched at the \gls{isw}~\cite{kretschmer2016communication}.
-			Its goal is the auto-provisioning \gls{cps} to manufacturing sites.
+			Another research project which has automation and control using \gls{plc}s as a focus is the project "piCASSO" currently researched at the \gls{isw}, which began in 2016 and is still continued~\cite{kretschmer2016communication}.
+			Its goal is the auto-provisioning \gls{cps} to manufacturing sites, which relates to the goals defined in parallel with the project of \gls{rnp} described in~\cref{sec:rent_n_produce}~\cite{xen.17b}.
 			A platform based on a \gls{soa}, which coordinates a robot remotely through the Cloud, has been presented in~\cite{kretschmer2016communication}. 
-			Showing different approaches of networking in the automation field, the results several new points of interest to researchers in this field.
+			Showing different approaches of networking in the automation field, the results several new points of interest to researchers in this field~\cite{kretschmer2016communication}.
 
 		\section{Machine-to-Machine Communication}\label{sec:machine_to_machine_communication}
 			
-			Many \gls{cps} are sensor-rich distributed real-time embedded systems that closely interact with the physical world~\cite{kang2012rdds}. 
-			In such systems, numerous entities cooperate with each other to achieve their common goals. 
-			They collect data from the physical world using sensors and feed the sensor data into computing resources, which in turn make real-time decisions in cooperation by sharing data and information among participating entities.
+			Many \gls{cps} are sensor-rich distributed real-time embedded systems that closely interact with the physical world~\cite{zhao2017machine}. 
+			In such systems, numerous entities cooperate with each other to achieve their common goals~\cite{li20185g}. 
+			They collect data from the physical world using sensors and feed the sensor data into computing resources, which in turn make real-time decisions in cooperation by sharing data and information among participating entities~\cite{ren2017cloud}.
 			
-			In the context of \gls{cm} and control engineering from the Cloud, researchers focus on the definition of standard \gls{m2m} communication protocols tackling on exactly these problems.
-			Respectively, two protocols emerged for the manufacturing field trying to fulfill the needs of manufacturers; \gls{opcua} and \gls{dds}~\cite{jazdi2014cyber}.
-			While \gls{opcua} is largely adapted by European manufacturers, \gls{dds} is more popular at manufacturers in the United States~\cite{schleipen2008opc}.
-			\gls{opcua} builds a whole abstraction model containing, communication and data structures~\cite{candido2010soa}.
-			\gls{dds} on the other hand offers a more simple and unopinionated model provided by an object definition and abstraction model~\cite{candido2010soa}.
+			In the context of \gls{cm} and control engineering from the Cloud, researchers focus on the definition of standard \gls{m2m} communication protocols tackling on exactly these problems~\cite{lewis2018system}.
+			Respectively, two protocols emerged for the manufacturing field trying to fulfill the needs of manufacturers; \gls{opcua} and \gls{dds}~\cite{peters2018opc}.
+			While \gls{opcua} is largely adapted by European manufacturers, \gls{dds} is more popular at manufacturers in the United States~\cite{muller2017developing}.
+			\gls{opcua} builds a whole abstraction model containing, communication and data structures~\cite{muller2017developing}.
+			\gls{dds} on the other hand offers a more simple and unopinionated model provided by an object definition and abstraction model~\cite{muller2017developing}.
 			
 			As described in~\cref{sec:opc_ua}, \gls{opcua} serves an abstraction layer for \gls{m2m} communication. Using \gls{opcua}, attempts have been taken to implement a \gls{soa} middleware for control engineering from the Cloud~\cite{melik2012towards}.
-			However, these several attempts for implementing \gls{soa}-based Automation Systems have been implemented successfully, but always with non-industrial, non-standard software like Devices Profile for Web Services~\cite{melik2012towards}.
-			Of great interest for research is the connection and integration of production sites via \gls{opcua}, which does not require a manufacturer-specific solution~\cite{melik2012towards}. These integrations should follow the \gls{opcua} model principles and rely on the specified standard implementation, ensuring a seamless integration of different manufacturing tools and units into a \gls{soa} middleware solution~\cite{imtiaz2013scalability}.
+			However, these several attempts for implementing \gls{soa}-based Automation Systems have been implemented successfully, but always with non-industrial, non-standard software like Devices Profile for Web Services~\cite{luo2017opc}.
+			
+	\newpage
+			
+			Of great interest for research is the connection and integration of production sites via \gls{opcua}, which does not require a manufacturer-specific solution~\cite{luo2017opc}. 
+			These integrations should follow the \gls{opcua} model principles and rely on the specified standard implementation, ensuring a seamless integration of different manufacturing tools and units into a \gls{soa} middleware solution~\cite{luo2017opc}.
 			
 		\section{Conclusion}\label{sec:state_of_the_research_conclusion}
 		
-			Text
+			In this section, an overview over the current state of research in fields referenced by this work has been provided.
+			Current research projects in the \gls{cm} field have been presented in~\cref{sec:state_of_science_cloud_manufacturing}.
+			There, common challenges of current researches have been unveiled and were implicitly set in the context of this work.
+			An idea for future work by relying on one of the presented researches projects has been provided as well.
+			Subsequently, current research projects trying to combine the fields of control engineering and the concepts of \gls{cm} were shown.
+			Two different approaches of integration of control units into Cloud platforms have been shown as well.
+			Finally, this chapter has been concluded with an overview over current research in the field of \gls{m2m} communication protocols.
+			
 			
 	\chapter{Evaluation}\label{ch:evaluation}
 	
