@@ -446,10 +446,11 @@ enddate={May 22, 2018}
 					\label{fig:opc_ua_client_model}
 				\end{figure}
 			
-		\section*{Conclusion}\label{sec:foundations_conclusion}
+		\section{Conclusion}\label{sec:foundations_conclusion}
 		
-			This section provided a brief introduction to the \gls{rnp} research project platform as well as to further related fields of this work.
-			\gls{rnp} was presented as vendor independent \gls{cm} platform, which currently lacks the functionalities to bind and control machine tools from the Cloud. General Cloud Computing concepts as \gls{saas} have been highlighted in parallel to their relations and influence to the \gls{cm} field. Respectively to the \gls{cm} and manufacturing and control scopes in general, \gls{opcua} protocol, emerging in Europe has been presented as well. Possibilities, which come with \gls{opcua} and their relation to this thesis, which aims to evaluate and provide a \gls{poc} for production data transfer to machine tools from the cloud and being machine tool and control independent at the same time, have been presented as well.
+			In this section a detailed introduction to the \gls{rnp} \gls{cm} platform has been provided. 
+			The concepts of Cloud Computing and \gls{cm} used in the platform have been provided as well. 
+			\gls{opcua} has been introduced as an emerging \gls{m2m} communication protocol and its Server and Client \gls{api}s and architectures have been described in more detail. 		
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
@@ -531,9 +532,13 @@ enddate={May 22, 2018}
 				\end{tabular}
 			\end{table}
 		
-		\section*{Conclusion}\label{sec:state_of_the_art_conclusion}
-		
-			Text
+		\section{Conclusion}\label{sec:state_of_the_art_conclusion}
+			
+			In this section State of the Art technologies and concepts have been introduced.
+			Spring Boot and the Spring Framework have been presented as a widely adopted technology to build \gls{java} Services for \gls{soa} applications.
+			Further, concepts and technologies to distribute applications and services over different platforms and underlying systems using container virtualization with Docker have been described as well.
+			Finally, \gls{rest} has been described as a fundamental concept of modeling service \gls{api}s. 
+			The mapping process of \gls{http} requests to the \gls{rest} model has been described as well.
 
 	\chapter{State of Research} \label{ch:state_of_the_Science}
 
@@ -585,7 +590,7 @@ enddate={May 22, 2018}
 			However, these several attempts for implementing \gls{soa}-based Automation Systems have been implemented successfully, but always with non-industrial, non-standard software like Devices Profile for Web Services~\cite{melik2012towards}.
 			Of great interest for research is the connection and integration of production sites via \gls{opcua}, which does not require a manufacturer-specific solution~\cite{melik2012towards}. These integrations should follow the \gls{opcua} model principles and rely on the specified standard implementation, ensuring a seamless integration of different manufacturing tools and units into a \gls{soa} middleware solution~\cite{imtiaz2013scalability}.
 			
-		\section*{Conclusion}\label{sec:state_of_the_research_conclusion}
+		\section{Conclusion}\label{sec:state_of_the_research_conclusion}
 		
 			Text
 			
@@ -690,7 +695,7 @@ enddate={May 22, 2018}
 		
 			After filtering~\cref{tab:framework_comparison} for the requirement, that the framework must be Open Source, only the \gls{opc} Foundation, the Eclipse Milo framework and opcua4j were left. As opcua4j only implements the \gls{opcua} Server \gls{api}, just the first both passed the second column of the requirements table. As the example implementation of the \gls{opc} Foundation only relies on native \gls{opcua} \gls{api} calls, the Eclipse Milo framework has been chosen as it provides a higher layer of abstraction making the \gls{poc} developed with it more understandable and maintainable.
 			
-		\section*{Conclusion}\label{sec:evaluation_conclusion}
+		\section{Conclusion}\label{sec:evaluation_conclusion}
 		
 			In this chapter requirements for the decision process of an \gls{opcua} framework to be used for the implementation of the \gls{poc} in this work, have been defined. 
 			These requirements have been checked against beforehand researched \gls{opcua} frameworks and results haven been presented in~\cref{tab:framework_comparison} using Havey Balls.
@@ -1076,9 +1081,16 @@ enddate={May 22, 2018}
 
 				Finally, the access on machine tool level is secured using the \gls{opcua} security mechanisms. Each \gls{opcua} server of each machine tool has a fine granulated access and method call description secured using identity certificates. The \gls{poc} initializes the certificate negotiation at the first time, the machine tool is bound to the cloud platform. The service itself can only add \gls{gcode} files to the machine tool \gls{plc} but can't remove data from or interrupt native \gls{plc} implementations.
 				
-		\section*{Conclusion}\label{sec:concept_conclusion}
+		\section{Conclusion}\label{sec:concept_conclusion}
 		
-			Text
+			This chapter introduced the concept for integrating a \gls{poc} into the \gls{rnp} \gls{cm} platform.
+			First, the \gls{rnp} platform was analyzed and infrastructural, architectural and functional requirements for the \gls{poc} were distilled from the analysis made beforehand. 
+			The architecture for the \gls{poc} has been described as a \gls{soa}.
+			The \gls{poc} will be packaged into a Docker container, bound to a second Docker container containing the \gls{sql} database serving as persistence layer for the \gls{poc} and will provide its functionality with a \gls{rest}-ful \gls{api}.
+			The \gls{poc} will finally be bound to the \gls{opcua} server of the machine-tool to be integrated only relying on the \gls{opcua} protocol.
+			This chapter described the binding process in more detail.
+			Subsequently, Use Cases have been divided into mandatory and optional ones, which then have been described in more detail to ensure later comparison of the implemented \gls{poc} against them.
+			Finally, basic security concepts and suggestions concluded this chapter by suggesting the usage of the OAuth2 authentication protocol for securing the \gls{poc} \gls{api} and the utilization of the security mechanisms already implemented in the \gls{opcua} protocol.
 
 	\chapter{Discussion} \label{ch:discusion}
 
@@ -1185,9 +1197,17 @@ enddate={May 22, 2018}
 			Further, the \gls{poc} totally depends on a prior knowledge of the \gls{opcua} addresses and security configurations from the manufacturer as that these have to be provided during the persistence of machine tools to the \gls{rnp} platform. 
 			Finally, an automatic provisioning of the machine tools by their \gls{opcua} addresses is still not possible, as the types, versions and software states of the manufacturers \gls{plc}s can be highly heterogeneous, making it impossible for the \gls{poc} to know which kind of services the \gls{plc} really supports, making the need of a kind of gateway inevitable.
 			
-		\section*{Conclusion}\label{sec:discussion_conclusion}
+		\section{Conclusion}\label{sec:discussion_conclusion}
 		
-			Text
+			In this chapter, the results of the testing of the implemented \gls{poc} against the previously defined requirements and the concept described in~\cref{ch:concept} were presented.
+			For the integration of the \gls{poc} into the \gls{rnp} platform the results showed, that the \gls{poc} specified in the concept could be integrated seamlessly into the platform.
+			Further, the requirements of the Use Cases to upload, persist and schedule production data as \gls{gcode} as well as the request of the current machine tool status could totally be met by the implemented \gls{poc}.
+			
+			As described in~\cref{subsec:g_code_transfer,subsec:part_production} limitations and negative results have been revealed.
+			It was noted that the transfer of production data to the connected machine tool depends heavily on the implementation of the \gls{opcua} server attached to it. 
+			For this reason, an automated and machine tool independent production from the Cloud could not be simulated on provided physical machine tool.
+			Nevertheless, it could be shown that the \gls{poc} on the \gls{opcua} Client \gls{api} side correctly implements the \gls{opcua} protocol and that these tests after; a specific adaptation to the \gls{opcua} Server of the machine tool would have turned out positive.
+			Finally, a closer discussion in~\cref{sec:limitations} on the exact background of the problem was led.
 
 	\chapter{Conclusion and Future Work} \label{ch:conclusion_and_future_work}
 
