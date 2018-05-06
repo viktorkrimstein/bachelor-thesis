@@ -227,6 +227,8 @@ enddate={May 22, 2018}
 			
 			This middleware is intended to provide access to configuration and status data of the production resource, to transfer \gls{nc} programs in \gls{gcode} format\footnote{\url{https://www.iso.org/standard/34608.html}}, generated through a \gls{cad} and \gls{cam} process chain, to the machine tool, and to start or stop the part production. 
 			
+	\newpage
+			
 			The resulting \gls{poc} should simulate the \gls{cm} processes beginning with the order management and ending with the production of a real part. Subgoals are defined as follows:
 
 			\begin{enumerate}
@@ -436,6 +438,8 @@ enddate={May 22, 2018}
 				The Services defined for \gls{opcua} are described in Clause 6.4 of~\cite{opcfoundation2017part4}.
 				Note that the ``Client API'' is an internal interface that isolates the Client application code from an \gls{opcua} Communication Stack.
 				
+	\newpage
+				
 				The \gls{opcua} Communication Stack converts Client \gls{api} calls into Messages and sends them through the underlying communications entity to the Server at the request of the Client application.
 				The \gls{opcua} Communication Stack also receives response and \textit{NotificationMessages} from the underlying communications entity and delivers them to the Client application through the Client \gls{api}.
 
@@ -462,7 +466,7 @@ enddate={May 22, 2018}
 			
 			Besides its clean architectural approach, Spring Boot provides standard enterprise pattern configurations for message broker, service discovery, performance and metrics tracing as well as custom web-server configurations with little to no configuration effort.
 
-		\section{Docker and Docker Compose}\label{sec:docker}
+		\section{Container-Based Virtualization}\label{sec:docker}
 		
 			Docker\footnote{\url{https://www.docker.com/}} is an open source project providing a systematic way to automate the faster deployment of Linux applications inside portable containers~\cite{bernstein2014containers}. 
 			Basically, Docker extends \gls{lxc} with a kernel-and application-level API that together run processes in isolation: \gls{cpu}, memory, disk read and write operations, network, and so on. 
@@ -546,21 +550,22 @@ enddate={May 22, 2018}
 
 		\section{State of Research in Cloud Manufacturing}\label{sec:state_of_science_cloud_manufacturing}
 
-			As a new IT paradigm, Cloud Computing is being increasingly adopted to transform the way that \gls{it} resources are utilised and consumed~\cite{li2010cloud}. 
-			Consequently, the manufacturing industry is exploring Cloud Computing in order to improve existing manufacturing structures and enterprise systems, to
-			share and provide on-demand networked manufacturing services, and to better satisfy specific manufacturing enterprise needs~\cite{he2015state}.
-			So far researchers have proposed a number of new techniques and approaches to encapsulate various virtualized manufacturing resources and capabilities as Cloud-based services and to implement enterprise \gls{cm} service frameworks and platforms~\cite{tao2011cloud}.
+			As a new IT paradigm, Cloud Computing is being increasingly adopted to transform the way that \gls{it} resources are utilised and consumed~\cite{li2010cloud,ren2017cloud}. 
+			Consequently, the manufacturing industry is exploring Cloud Computing in order to improve existing manufacturing structures and enterprise systems, to share and provide on-demand networked manufacturing services~\cite{ren2017cloud}, and to better satisfy specific manufacturing enterprise needs~\cite{he2015state}.
+			So far researchers have proposed a number of new techniques and approaches to encapsulate various virtualized manufacturing resources and capabilities as Cloud-Based services and to implement enterprise \gls{cm} service frameworks and platforms~\cite{tao2017sdmsim}.
 			
 			But as the use of these new paradigms gets more and more common, challenges for \gls{cm} service models and production sites arise~\cite{brettel2014virtualization}.
-			Networked manufacturing for example, lacks strong management mechanisms and efficient tools to coordinate large-scale distributed resources, services and operations~\cite{xu2012cloud}.
+			Networked manufacturing for example, lacks strong management mechanisms and efficient tools to coordinate large-scale distributed resources, services and operations~\cite{lin2017multi,xu2012cloud}.
 			
-			Besides the lack of management and control mechanisms in \gls{cm} multivendor systems and heterogeneous infrastructure on production sites pose additional challenges on the \gls{cm} research field~\cite{weyer2015towards}.
-			The specification of standard communication protocols and data models gains a fast growing role in the automation~\cite{jazdi2014cyber} and \gls{cm} field~\cite{wollschlaeger2017future}.
+			Further, reasearchers aim to decentralize the management of manufacturing resources in the cloud by providing management models to control and administrate manufacturing units through the cloud~\cite{tao2017sdmsim}. Tackling theese challenges ~\cite{lin2017multi} proposes a multi-centric management approach for automized manufacturing unit allocation to which, the results of this work could be bind seamlessly.
 			
-			Further, security gets more and more relevance in \gls{cm} field.
+			Besides the lack of management and control mechanisms in \gls{cm} multivendor systems and heterogeneous infrastructure on production sites pose additional challenges on the \gls{cm} research field~\cite{tuna2017survey, weyer2015towards}.
+			The specification of standard communication protocols and data models gains a fast growing role in the automation~\cite{ren2017cloud} and \gls{cm} field~\cite{wollschlaeger2017future}.
+			
+			Additionally, security gets more and more relevance in \gls{cm} field.
 			In a traditional on-premise application deployment model, the sensitive data of each enterprise continues to reside within the enterprise boundary and is subject to its physical, logical and personnel security and access control policies~\cite{jeschke2017industrial}. 
-			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{subashini2011survey}.
-			Consequently, the \gls{saas} vendor must adopt additional security checks to ensure data security and prevent breaches due to security vulnerabilities in the application or through malicious employees.
+			However, in the \gls{saas} model, the enterprise data is stored outside the enterprise boundary, at the \gls{saas} vendor end~\cite{subashini2011survey,tao2011cloud}.
+			Consequently, the \gls{saas} vendor must adopt additional security checks to ensure data security and prevent breaches due to security vulnerabilities in the application or through malicious employees~\cite{chen2017machine}.
 
 		\section{Control Engineering in the Cloud}\label{sec:control_engineering_in_the_cloud}
 
@@ -694,6 +699,8 @@ enddate={May 22, 2018}
 			\end{table}
 		
 			After filtering~\cref{tab:framework_comparison} for the requirement, that the framework must be Open Source, only the \gls{opc} Foundation, the Eclipse Milo framework and opcua4j were left. As opcua4j only implements the \gls{opcua} Server \gls{api}, just the first both passed the second column of the requirements table. As the example implementation of the \gls{opc} Foundation only relies on native \gls{opcua} \gls{api} calls, the Eclipse Milo framework has been chosen as it provides a higher layer of abstraction making the \gls{poc} developed with it more understandable and maintainable.
+			
+	\newpage
 			
 		\section{Conclusion}\label{sec:evaluation_conclusion}
 		
@@ -1080,6 +1087,8 @@ enddate={May 22, 2018}
 				User access and permissions to access the \gls{api} is regulated by the Oauth2 protocol to handle user access sessions to the system. Only users with the appropriate access tokens can send requests to each service of the \gls{rnp} platform, including the \gls{poc}. Besides that, only the manufacturers identified by their tokens, can see the machine tools they own and trigger the data transfer to them, which builds an additional security layer.
 
 				Finally, the access on machine tool level is secured using the \gls{opcua} security mechanisms. Each \gls{opcua} server of each machine tool has a fine granulated access and method call description secured using identity certificates. The \gls{poc} initializes the certificate negotiation at the first time, the machine tool is bound to the cloud platform. The service itself can only add \gls{gcode} files to the machine tool \gls{plc} but can't remove data from or interrupt native \gls{plc} implementations.
+				
+	\newpage
 				
 		\section{Conclusion}\label{sec:concept_conclusion}
 		
