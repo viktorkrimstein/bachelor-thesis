@@ -209,7 +209,7 @@ enddate={May 22, 2018}
 			By adapting principles of Cloud Computing, manufacturers are given the possibility to track, manage and control their machine tools and manufacturing units remotely~\cite{wu2013cloud}.
 			It is possible to follow the whole manufacturing process through the whole automation pyramid allowing manufacturers to scale and schedule their production planning and execution according to customers' needs~\cite{kleinemeier2014automatisierungspyramide}.
 
-			Currently the most Use Cases of the \gls{cm} platform focus on the retrieval and gathering of data from machine tools.
+			Currently the most Use Cases of existing \gls{cm} platforms focus on the retrieval and gathering of data from machine tools.
 			Remote control of the machines and manufacturing processes beyond company boundaries is not in the focus of research.
 			The motivation of this work is to provide an architectural approach to provision and manage machine tools of manufacturers remotely and to transfer production data down to the machines using a standard \gls{m2m} communication protocol.
 			This work wants to provide a manufacturer and control unit independent approach that allows manufacturers to control their production processes and not only focus on monitoring them. Therefore, a real machine tool should be integrated into the \gls{rnp} platform using the \gls{poc}.
@@ -221,7 +221,7 @@ enddate={May 22, 2018}
 		\section{Goals}\label{sec:goals}
 
 			The goal of this thesis is to model the integration of a real machine tool into the \gls{rnp} Cloud platform by using \gls{opcua}.
-			Therefore, use-cases will be researched and evaluated to create an architecture, modeling the specified requirements.
+			Therefore, Use Cases will be researched and evaluated to create an architecture, modeling the specified requirements.
 			This architecture will later on be tested, using a prototypical implementation of a \gls{poc}.
 			The required functionality of the integrated \gls{poc} should be encapsulated in a virtualization container.
 			
@@ -252,6 +252,7 @@ enddate={May 22, 2018}
 			References to the current state of the art are presented in \cref{ch:state_of_the_art} and will show the stack of technologies and techniques used in this work.
 			Afterwards  a differentiated view on the current state of the research is taken in \cref{ch:state_of_the_Science}.
 			In this chapter the general state of current research on the topics that relate to this thesis are described by at the same time distancing from the current industrial state.
+			\Cref{ch:evaluation} then describes the evaluation of a suitable Open Source \gls{opcua} framework for the implementation of the \gls{poc}.
 			Concepts and methodologies of the \gls{poc} to be developed as part this work are discussed in more detail in \Cref{ch:concept}.
 			In \Cref{ch:discusion} the results of the \gls{poc} implementation are discussed.
 			\Cref{ch:conclusion_and_future_work} concludes the paper and outlines possible future work.
@@ -427,7 +428,7 @@ enddate={May 22, 2018}
 					\label{fig:opc_ua_server_model}
 				\end{figure}
 
-			\subsection{OPC UA Client Model}\label{subsec:opc_ua_client_model}
+			\subsection{Client Model}\label{subsec:opc_ua_client_model}
 
 				The \gls{opcua} Client architecture models the Client endpoint of client/server interactions.
 				\Cref{fig:opc_ua_client_model} illustrates the major elements of a typical Client and how they relate to each other.
@@ -458,7 +459,7 @@ enddate={May 22, 2018}
 
 	\chapter{State of the Art}\label{ch:state_of_the_art}
 	
-		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for the \gls{java}~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Finally, the \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
+		In this chapter this work covers the state-of-the-art concepts and technologies being used for the evaluation, implementation and integration of the \gls{poc}. \Cref{sec:spring_boot} introduces the Spring Boot framework for \gls{java}~\cite{java2015} programming language. In \cref{sec:docker} the trending virtualization container technology Docker is highlighted. Finally, the \gls{rest} concept for \gls{api} design is covered by \cref{sec:rest}
 
 		\section{Spring Boot}\label{sec:spring_boot}
 
@@ -490,7 +491,7 @@ enddate={May 22, 2018}
 				\begin{subfigure}{0.45\textwidth}
 					\centering
 					\includegraphics[width=0.9\linewidth]{virtual_hypervisor.jpg}
-					\caption{A diagram showing the layers of a hzypervisor-based virtualization}
+					\caption{A diagram showing the layers of a hypervisor-based virtualization}
 					\label{subfig:hypervisor}
 				\end{subfigure}
 				\hfill
